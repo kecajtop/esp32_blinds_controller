@@ -7243,6 +7243,138 @@
 		)
 		(uuid "fe7be4b5-3783-49b5-9ec2-e091400bc537")
 	)
+	(rectangle
+		(start 132.08 115.57)
+		(end 144.78 148.59)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 39b34a7f-03d3-4561-a914-c75e4c7873a1)
+	)
+	(rectangle
+		(start 264.16 17.78)
+		(end 283.21 137.16)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 6869c653-9fd2-41c9-8e67-174acc2e95a4)
+	)
+	(rectangle
+		(start 158.75 30.48)
+		(end 223.52 95.25)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 736c5f2f-3016-449e-aa77-d148a071b070)
+	)
+	(rectangle
+		(start 121.92 50.8)
+		(end 143.51 73.66)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 74cb0ce9-8516-489d-a71a-00493116ddef)
+	)
+	(rectangle
+		(start 40.64 66.04)
+		(end 57.15 96.52)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid c479f10e-bfea-4b95-a1ba-d1f79b75dd8f)
+	)
+	(rectangle
+		(start 204.47 115.57)
+		(end 219.71 151.13)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid c9e8d29b-7359-455d-bdd9-701a0bd4322a)
+	)
+	(text "EL817"
+		(exclude_from_sim no)
+		(at 212.09 118.364 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "025f2dfb-0480-4245-9ace-da7d04933531")
+	)
+	(text "LEG-24\n\n"
+		(exclude_from_sim no)
+		(at 189.992 33.782 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "428f3c60-c52e-42d7-9564-f6f8a82ecc3c")
+	)
+	(text "EL817"
+		(exclude_from_sim no)
+		(at 137.922 117.602 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "52070325-d1e7-4868-979e-7044f520f9b2")
+	)
+	(text "Error"
+		(exclude_from_sim no)
+		(at 133.604 55.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "5a757748-67f2-456b-8360-986ecb7f141d")
+	)
+	(text "R-78E3.3-1.0"
+		(exclude_from_sim no)
+		(at 49.53 93.726 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "a9d36905-4278-4fda-a426-cfe1d6bfe6c9")
+	)
+	(text "TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm_Horizonta"
+		(exclude_from_sim no)
+		(at 280.67 91.694 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "b1dc95ff-1471-4f77-9e7b-fc01c4963e72")
+	)
 	(text "For ESP32 use Cheap Yellow Display 2.4 inches"
 		(exclude_from_sim no)
 		(at 92.71 15.494 0)
