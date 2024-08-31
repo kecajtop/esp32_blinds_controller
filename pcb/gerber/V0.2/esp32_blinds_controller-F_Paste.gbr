@@ -1,60 +1,24 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,8.0.0*%
-%TF.CreationDate,2024-08-19T18:56:58+02:00*%
-%TF.ProjectId,esp32_blinds_controller,65737033-325f-4626-9c69-6e64735f636f,V0.1*%
+%TF.CreationDate,2024-08-31T22:07:17+02:00*%
+%TF.ProjectId,esp32_blinds_controller,65737033-325f-4626-9c69-6e64735f636f,V0.2*%
 %TF.SameCoordinates,Original*%
-%TF.FileFunction,Paste,Bot*%
+%TF.FileFunction,Paste,Top*%
 %TF.FilePolarity,Positive*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 8.0.0) date 2024-08-19 18:56:58*
+G04 Created by KiCad (PCBNEW 8.0.0) date 2024-08-31 22:07:17*
 %MOMM*%
 %LPD*%
 G01*
 G04 APERTURE LIST*
-G04 Aperture macros list*
-%AMRoundRect*
-0 Rectangle with rounded corners*
-0 $1 Rounding radius*
-0 $2 $3 $4 $5 $6 $7 $8 $9 X,Y pos of 4 corners*
-0 Add a 4 corners polygon primitive as box body*
-4,1,4,$2,$3,$4,$5,$6,$7,$8,$9,$2,$3,0*
-0 Add four circle primitives for the rounded corners*
-1,1,$1+$1,$2,$3*
-1,1,$1+$1,$4,$5*
-1,1,$1+$1,$6,$7*
-1,1,$1+$1,$8,$9*
-0 Add four rect primitives between the rounded corners*
-20,1,$1+$1,$2,$3,$4,$5,0*
-20,1,$1+$1,$4,$5,$6,$7,0*
-20,1,$1+$1,$6,$7,$8,$9,0*
-20,1,$1+$1,$8,$9,$2,$3,0*%
-G04 Aperture macros list end*
-%ADD10RoundRect,0.250000X0.500000X1.100000X-0.500000X1.100000X-0.500000X-1.100000X0.500000X-1.100000X0*%
 %TA.AperFunction,Profile*%
-%ADD11C,0.050000*%
+%ADD10C,0.050000*%
 %TD*%
 %TA.AperFunction,Profile*%
-%ADD12C,0.120000*%
+%ADD11C,0.120000*%
 %TD*%
 G04 APERTURE END LIST*
 D10*
-%TO.C,D1*%
-X129750000Y-101750000D03*
-X124950000Y-101750000D03*
-%TD*%
-%TO.C,D3*%
-X195105000Y-101250000D03*
-X190305000Y-101250000D03*
-%TD*%
-%TO.C,D4*%
-X148650000Y-101000000D03*
-X143850000Y-101000000D03*
-%TD*%
-%TO.C,D2*%
-X176400000Y-101200000D03*
-X171600000Y-101200000D03*
-%TD*%
-D11*
 X139900000Y-99900000D02*
 G75*
 G02*
@@ -223,7 +187,7 @@ X115900000Y-99900000I1200000J0D01*
 G01*
 X133600000Y-106600000D02*
 X133600000Y-101100000D01*
-D12*
+D11*
 %TO.C,MOD1*%
 X101175000Y-55745000D02*
 X101175000Y-138995000D01*
