@@ -1439,7 +1439,7 @@
 				)
 			)
 		)
-		(symbol "Isolator:PC817"
+		(symbol "Isolator:EL817"
 			(pin_names
 				(offset 1.016)
 			)
@@ -1455,7 +1455,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "PC817"
+			(property "Value" "EL817"
 				(at 0 5.08 0)
 				(effects
 					(font
@@ -1475,7 +1475,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf"
+			(property "Datasheet" "http://www.everlight.com/file/ProductFile/EL817.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1485,7 +1485,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"
+			(property "Description" "DC Optocoupler, Vce 35V, DIP-4"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1512,7 +1512,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "PC817_0_1"
+			(symbol "EL817_0_1"
 				(rectangle
 					(start -5.08 3.81)
 					(end 5.08 -3.81)
@@ -1669,7 +1669,7 @@
 					)
 				)
 			)
-			(symbol "PC817_1_1"
+			(symbol "EL817_1_1"
 				(pin passive line
 					(at -7.62 2.54 0)
 					(length 2.54)
@@ -1989,7 +1989,7 @@
 				)
 			)
 		)
-		(symbol "Regulator_Switching:R-78C3.3-1.0"
+		(symbol "Regulator_Switching:R-78E3.3-1.0"
 			(pin_names
 				(offset 0.254)
 			)
@@ -2004,7 +2004,7 @@
 					)
 				)
 			)
-			(property "Value" "R-78C3.3-1.0"
+			(property "Value" "R-78E3.3-1.0"
 				(at 0 3.175 0)
 				(effects
 					(font
@@ -2024,7 +2024,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Cxx-1.0.pdf"
+			(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Exx-1.0.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2033,7 +2033,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "1A Step-Down DC/DC-Regulator, 6-42V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+			(property "Description" "1A Step-Down DC/DC-Regulator, 6-28V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
 				(at 0 0 0)
 				(effects
 					(font
@@ -2060,7 +2060,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "R-78C3.3-1.0_0_1"
+			(symbol "R-78E3.3-1.0_0_1"
 				(rectangle
 					(start -5.08 1.905)
 					(end 5.08 -5.08)
@@ -2073,7 +2073,7 @@
 					)
 				)
 			)
-			(symbol "R-78C3.3-1.0_1_1"
+			(symbol "R-78E3.3-1.0_1_1"
 				(pin power_in line
 					(at -7.62 0 0)
 					(length 2.54)
@@ -4760,12 +4760,6 @@
 		(uuid "34540ac7-2d39-4e05-9d5a-ae48e6abe32a")
 	)
 	(junction
-		(at 113.03 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "3fef1d52-9842-441f-9455-70e1281cbfe2")
-	)
-	(junction
 		(at 133.35 179.07)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4790,12 +4784,6 @@
 		(uuid "5bc1f0dc-11d3-45e9-a35a-51e63c8ce492")
 	)
 	(junction
-		(at 102.87 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "622c03ab-2148-47c2-afbb-252eb2b3e073")
-	)
-	(junction
 		(at 228.6 25.4)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4808,18 +4796,6 @@
 		(uuid "6a20ce2e-1b73-4eb2-b89a-861f004b21f7")
 	)
 	(junction
-		(at 128.27 63.5)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6a2ca9d3-f3e5-4d90-ba11-8df006fa9cbc")
-	)
-	(junction
-		(at 102.87 66.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6fdd1b30-fc74-45ce-bccc-4f613936719d")
-	)
-	(junction
 		(at 48.26 40.64)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4830,12 +4806,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "81fab360-1c3b-4cf0-b1cb-b5c8cbef548b")
-	)
-	(junction
-		(at 127 66.04)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "82c4254b-d3e5-4cf8-be65-cafee2d1a8f1")
 	)
 	(junction
 		(at 262.89 125.73)
@@ -4922,16 +4892,34 @@
 		(uuid "ec8d1ab7-f806-4894-bd32-082a333fef39")
 	)
 	(junction
-		(at 125.73 68.58)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "f1f5cab9-6f52-42e0-b287-35548c662015")
-	)
-	(junction
 		(at 177.8 64.77)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fe9bc6d3-4535-4bd6-bd78-c6c8a4be0831")
+	)
+	(no_connect
+		(at 123.19 53.34)
+		(uuid "15dc21be-22c0-4721-9465-543b29595830")
+	)
+	(no_connect
+		(at 123.19 55.88)
+		(uuid "1f8c1a57-a419-4eb7-bd6b-8a63b964b293")
+	)
+	(no_connect
+		(at 102.87 58.42)
+		(uuid "36d09534-2174-4748-8a43-4a172c95fbb7")
+	)
+	(no_connect
+		(at 102.87 55.88)
+		(uuid "901550e0-2df7-4a23-b4c6-fa415e04c3f0")
+	)
+	(no_connect
+		(at 123.19 58.42)
+		(uuid "9ee74fba-c913-439d-a932-cb024acb751a")
+	)
+	(no_connect
+		(at 102.87 53.34)
+		(uuid "e3ae455c-22d1-4f25-875c-d2163c8798d5")
 	)
 	(wire
 		(pts
@@ -4962,16 +4950,6 @@
 			(type default)
 		)
 		(uuid "0336451d-a0dc-45e7-97d9-70e22cbc4601")
-	)
-	(wire
-		(pts
-			(xy 102.87 63.5) (xy 102.87 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "07be4ade-fc3b-41c2-aa3c-f9ec9b694f12")
 	)
 	(wire
 		(pts
@@ -5345,16 +5323,6 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 73.66) (xy 102.87 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "38b19c46-a487-4864-950b-ec4ea5f02f3e")
-	)
-	(wire
-		(pts
 			(xy 142.24 38.1) (xy 153.67 38.1)
 		)
 		(stroke
@@ -5505,16 +5473,6 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 66.04) (xy 102.87 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4392152f-dfbd-4039-b73e-273300fbb90d")
-	)
-	(wire
-		(pts
 			(xy 236.22 140.97) (xy 236.22 123.19)
 		)
 		(stroke
@@ -5535,7 +5493,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 53.34) (xy 93.98 53.34)
+			(xy 102.87 60.96) (xy 93.98 60.96)
 		)
 		(stroke
 			(width 0)
@@ -5715,7 +5673,7 @@
 	)
 	(wire
 		(pts
-			(xy 127 66.04) (xy 123.19 66.04)
+			(xy 123.19 66.04) (xy 138.43 66.04)
 		)
 		(stroke
 			(width 0)
@@ -5745,7 +5703,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 60.96) (xy 93.98 60.96)
+			(xy 102.87 68.58) (xy 93.98 68.58)
 		)
 		(stroke
 			(width 0)
@@ -5875,7 +5833,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 58.42) (xy 93.98 58.42)
+			(xy 102.87 66.04) (xy 93.98 66.04)
 		)
 		(stroke
 			(width 0)
@@ -6015,16 +5973,6 @@
 	)
 	(wire
 		(pts
-			(xy 127 55.88) (xy 127 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "79c74617-0c90-47ab-b14f-bcf73fe6851d")
-	)
-	(wire
-		(pts
 			(xy 252.73 27.94) (xy 267.97 27.94)
 		)
 		(stroke
@@ -6045,7 +5993,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 68.58) (xy 123.19 68.58)
+			(xy 123.19 68.58) (xy 138.43 68.58)
 		)
 		(stroke
 			(width 0)
@@ -6435,7 +6383,7 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 63.5) (xy 123.19 63.5)
+			(xy 123.19 63.5) (xy 138.43 63.5)
 		)
 		(stroke
 			(width 0)
@@ -6535,16 +6483,6 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 66.04) (xy 127 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "afe53bae-be7a-4e83-b7af-58ea9a03f44f")
-	)
-	(wire
-		(pts
 			(xy 48.26 35.56) (xy 48.26 33.02)
 		)
 		(stroke
@@ -6565,7 +6503,7 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 55.88) (xy 93.98 55.88)
+			(xy 102.87 63.5) (xy 93.98 63.5)
 		)
 		(stroke
 			(width 0)
@@ -6642,16 +6580,6 @@
 			(type default)
 		)
 		(uuid "b5cfa798-d4e4-4a62-81d0-aaf464b1af3e")
-	)
-	(wire
-		(pts
-			(xy 125.73 53.34) (xy 125.73 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b5ec38d1-a948-4a00-999b-37bc76cfba13")
 	)
 	(wire
 		(pts
@@ -6755,16 +6683,6 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 68.58) (xy 125.73 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c5b67825-1a05-45fa-963b-4816aa4ef9dc")
-	)
-	(wire
-		(pts
 			(xy 189.23 127) (xy 179.07 127)
 		)
 		(stroke
@@ -6832,16 +6750,6 @@
 			(type default)
 		)
 		(uuid "d1c07d1f-f05f-454f-8869-6cb895b88382")
-	)
-	(wire
-		(pts
-			(xy 123.19 53.34) (xy 125.73 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d2d8df74-0b50-4985-85ca-772ee8c0d43c")
 	)
 	(wire
 		(pts
@@ -6965,26 +6873,6 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 63.5) (xy 128.27 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e1203fcc-24ff-4248-b34d-8070a6f5c348")
-	)
-	(wire
-		(pts
-			(xy 123.19 55.88) (xy 127 55.88)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e22e4384-2fdc-4eed-89b9-1417fa7fe068")
-	)
-	(wire
-		(pts
 			(xy 226.06 127) (xy 226.06 123.19)
 		)
 		(stroke
@@ -7055,16 +6943,6 @@
 	)
 	(wire
 		(pts
-			(xy 123.19 58.42) (xy 128.27 58.42)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e8a60d3e-6b78-4502-b45c-8dc985b51bfe")
-	)
-	(wire
-		(pts
 			(xy 35.56 73.66) (xy 35.56 67.31)
 		)
 		(stroke
@@ -7072,16 +6950,6 @@
 			(type default)
 		)
 		(uuid "e9761aae-c098-4dbe-8090-70f1ef3fe32e")
-	)
-	(wire
-		(pts
-			(xy 128.27 58.42) (xy 128.27 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ea142b0e-b78f-4c7d-a6ea-be2e42b4cd3d")
 	)
 	(wire
 		(pts
@@ -7142,16 +7010,6 @@
 			(type default)
 		)
 		(uuid "f1f5e9b5-ed1e-4215-be76-8aecf4f4787f")
-	)
-	(wire
-		(pts
-			(xy 102.87 73.66) (xy 102.87 68.58)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f352acd6-0fb2-4808-b973-0dcfd5c8e044")
 	)
 	(wire
 		(pts
@@ -7243,138 +7101,6 @@
 		)
 		(uuid "fe7be4b5-3783-49b5-9ec2-e091400bc537")
 	)
-	(rectangle
-		(start 132.08 115.57)
-		(end 144.78 148.59)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 39b34a7f-03d3-4561-a914-c75e4c7873a1)
-	)
-	(rectangle
-		(start 264.16 17.78)
-		(end 283.21 137.16)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 6869c653-9fd2-41c9-8e67-174acc2e95a4)
-	)
-	(rectangle
-		(start 158.75 30.48)
-		(end 223.52 95.25)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 736c5f2f-3016-449e-aa77-d148a071b070)
-	)
-	(rectangle
-		(start 121.92 50.8)
-		(end 143.51 73.66)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 74cb0ce9-8516-489d-a71a-00493116ddef)
-	)
-	(rectangle
-		(start 40.64 66.04)
-		(end 57.15 96.52)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid c479f10e-bfea-4b95-a1ba-d1f79b75dd8f)
-	)
-	(rectangle
-		(start 204.47 115.57)
-		(end 219.71 151.13)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid c9e8d29b-7359-455d-bdd9-701a0bd4322a)
-	)
-	(text "EL817"
-		(exclude_from_sim no)
-		(at 212.09 118.364 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "025f2dfb-0480-4245-9ace-da7d04933531")
-	)
-	(text "LEG-24\n\n"
-		(exclude_from_sim no)
-		(at 189.992 33.782 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "428f3c60-c52e-42d7-9564-f6f8a82ecc3c")
-	)
-	(text "EL817"
-		(exclude_from_sim no)
-		(at 137.922 117.602 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "52070325-d1e7-4868-979e-7044f520f9b2")
-	)
-	(text "Error"
-		(exclude_from_sim no)
-		(at 133.604 55.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "5a757748-67f2-456b-8360-986ecb7f141d")
-	)
-	(text "R-78E3.3-1.0"
-		(exclude_from_sim no)
-		(at 49.53 93.726 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "a9d36905-4278-4fda-a426-cfe1d6bfe6c9")
-	)
-	(text "TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm_Horizonta"
-		(exclude_from_sim no)
-		(at 280.67 91.694 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "b1dc95ff-1471-4f77-9e7b-fc01c4963e72")
-	)
 	(text "For ESP32 use Cheap Yellow Display 2.4 inches"
 		(exclude_from_sim no)
 		(at 92.71 15.494 0)
@@ -7463,7 +7189,7 @@
 		(uuid "1b7da005-d610-48ac-ac41-7107ff60be1a")
 	)
 	(label "UP1"
-		(at 93.98 55.88 0)
+		(at 93.98 66.04 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7485,7 +7211,7 @@
 		(uuid "243e2513-542f-4829-a687-096b365fa72a")
 	)
 	(label "DN2"
-		(at 93.98 58.42 0)
+		(at 93.98 63.5 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7771,7 +7497,7 @@
 		(uuid "755fe473-5f25-4a40-a00a-2cd16dee2902")
 	)
 	(label "DN1"
-		(at 93.98 53.34 0)
+		(at 93.98 68.58 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -8348,7 +8074,7 @@
 				)
 			)
 		)
-		(property "Value" "G5LE-1"
+		(property "Value" "LEG-24"
 			(at 215.9 69.85 90)
 			(effects
 				(font
@@ -8512,7 +8238,7 @@
 				)
 			)
 		)
-		(property "Value" "G5LE-1"
+		(property "Value" "LEG-24"
 			(at 215.9 30.48 90)
 			(effects
 				(font
@@ -8657,12 +8383,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006"
 			(at 267.97 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ZD1006:ZD1006"
@@ -9238,7 +8965,7 @@
 		(fields_autoplaced yes)
 		(uuid "23fcf438-7bb1-4255-a99f-3e919f502636")
 		(property "Reference" "MOD1"
-			(at 276.225 64.77 0)
+			(at 276.86 64.7699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9246,12 +8973,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006"
 			(at 267.97 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ZD1006:ZD1006"
@@ -9404,7 +9132,7 @@
 				)
 			)
 		)
-		(property "Value" "G5LE-1"
+		(property "Value" "LEG-24"
 			(at 165.1 69.85 90)
 			(effects
 				(font
@@ -11177,7 +10905,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Switching:R-78C3.3-1.0")
+		(lib_id "Regulator_Switching:R-78E3.3-1.0")
 		(at 49.53 73.66 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11194,7 +10922,7 @@
 				)
 			)
 		)
-		(property "Value" "R-78C3.3-1.0"
+		(property "Value" "R-78E3.3-1.0"
 			(at 49.53 69.85 0)
 			(effects
 				(font
@@ -11213,7 +10941,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Cxx-1.0.pdf"
+		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Exx-1.0.pdf"
 			(at 49.53 73.66 0)
 			(effects
 				(font
@@ -11222,7 +10950,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "1A Step-Down DC/DC-Regulator, 6-42V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+		(property "Description" "1A Step-Down DC/DC-Regulator, 6-28V input, 3.3V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
 			(at 49.53 73.66 0)
 			(effects
 				(font
@@ -12380,7 +12108,7 @@
 				)
 			)
 		)
-		(property "Value" "G5LE-1"
+		(property "Value" "LEG-24"
 			(at 165.1 30.48 90)
 			(effects
 				(font
@@ -12507,7 +12235,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Isolator:PC817")
+		(lib_id "Isolator:EL817")
 		(at 212.09 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12524,7 +12252,7 @@
 				)
 			)
 		)
-		(property "Value" "PC817"
+		(property "Value" "EL817"
 			(at 212.09 123.19 0)
 			(effects
 				(font
@@ -12543,7 +12271,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf"
+		(property "Datasheet" "http://www.everlight.com/file/ProductFile/EL817.pdf"
 			(at 212.09 129.54 0)
 			(effects
 				(font
@@ -12553,7 +12281,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"
+		(property "Description" "DC Optocoupler, Vce 35V, DIP-4"
 			(at 212.09 129.54 0)
 			(effects
 				(font
@@ -12739,7 +12467,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Isolator:PC817")
+		(lib_id "Isolator:EL817")
 		(at 212.09 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12756,7 +12484,7 @@
 				)
 			)
 		)
-		(property "Value" "PC817"
+		(property "Value" "EL817"
 			(at 212.09 137.16 0)
 			(effects
 				(font
@@ -12775,7 +12503,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf"
+		(property "Datasheet" "http://www.everlight.com/file/ProductFile/EL817.pdf"
 			(at 212.09 143.51 0)
 			(effects
 				(font
@@ -12785,7 +12513,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"
+		(property "Description" "DC Optocoupler, Vce 35V, DIP-4"
 			(at 212.09 143.51 0)
 			(effects
 				(font
@@ -13630,7 +13358,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Isolator:PC817")
+		(lib_id "Isolator:EL817")
 		(at 138.43 129.54 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13647,7 +13375,7 @@
 				)
 			)
 		)
-		(property "Value" "PC817"
+		(property "Value" "EL817"
 			(at 138.43 123.19 0)
 			(effects
 				(font
@@ -13666,7 +13394,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf"
+		(property "Datasheet" "http://www.everlight.com/file/ProductFile/EL817.pdf"
 			(at 138.43 129.54 0)
 			(effects
 				(font
@@ -13676,7 +13404,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"
+		(property "Description" "DC Optocoupler, Vce 35V, DIP-4"
 			(at 138.43 129.54 0)
 			(effects
 				(font
@@ -13993,12 +13721,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006"
 			(at 267.97 20.32 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ZD1006:ZD1006"
@@ -14573,12 +14302,13 @@
 				(justify left)
 			)
 		)
-		(property "Value" "~"
+		(property "Value" "4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006"
 			(at 45.72 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
 			)
 		)
 		(property "Footprint" "ZD1006:ZD1006"
@@ -14714,7 +14444,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Isolator:PC817")
+		(lib_id "Isolator:EL817")
 		(at 138.43 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -14731,7 +14461,7 @@
 				)
 			)
 		)
-		(property "Value" "PC817"
+		(property "Value" "EL817"
 			(at 138.43 137.16 0)
 			(effects
 				(font
@@ -14750,7 +14480,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "http://www.soselectronic.cz/a_info/resource/d/pc817.pdf"
+		(property "Datasheet" "http://www.everlight.com/file/ProductFile/EL817.pdf"
 			(at 138.43 143.51 0)
 			(effects
 				(font
@@ -14760,7 +14490,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "DC Optocoupler, Vce 35V, CTR 50-300%, DIP-4"
+		(property "Description" "DC Optocoupler, Vce 35V, DIP-4"
 			(at 138.43 143.51 0)
 			(effects
 				(font
