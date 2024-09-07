@@ -1,0 +1,112 @@
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  scan: true
+  id: bus_a
+
+mcp23008:
+  - id: 'mcp23008_hub'
+    address: 0x26
+
+switch:
+  - platform: restart
+    name: "$friendly_name restart"
+  - platform: shutdown
+    name: "$friendly_name shutdown"
+  - platform: safe_mode
+    name: "$friendly_name restart (Safe Mode)"
+  - platform: gpio
+    id: relay_1
+    name: "MCP23008 Pin #0"
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 0
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 Pin #1"
+    id: relay_2
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 1
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 Pin #2"
+    id: relay_3
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 2
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 Pin #3"
+    id: relay_4
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 3
+      number: 3
+      mode:
+        output: true
+      inverted: false
+
+binary_sensor:
+
+  - platform: gpio
+    name: "MCP23008 Pin #4"
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 4
+      number: 4
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      then:
+        - switch.toggle: relay_1
+  - platform: gpio
+    name: "MCP23008 Pin #5"
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 5
+      number: 5
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      then:
+        - switch.toggle: relay_2
+  - platform: gpio
+    name: "MCP23008 Pin #6"
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 6
+      number: 6
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      then:
+        - switch.toggle: relay_3
+  - platform: gpio
+    name: "MCP23008 Pin #7"
+    pin:
+      mcp23xxx: mcp23008_hub
+      # Use pin number 7
+      number: 7
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      then:
+        - switch.toggle: relay_4
