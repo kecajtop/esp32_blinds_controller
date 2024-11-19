@@ -1,3 +1,9 @@
+#include "Arduino.h"
+#include "macros.h"
+#include "variables.h"
+#include "screen_elements.h"
+#include <TFT_eSPI.h>
+
 void nav() {
   tft.fillRoundRect(button_1[0], button_1[1], button_1[2], button_1[3], button_1[4], button_colour);
   tft.drawCentreString(button_label_1, button_1[0] + (button_1[2] / 2), button_1[1] + (button_1[3] / 2) - fontHeigh / 2, 1);

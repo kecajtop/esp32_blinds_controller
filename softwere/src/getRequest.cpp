@@ -1,5 +1,13 @@
 #include "Arduino.h"
 #include <HTTPClient.h>
+#include <variables.h>
+
+extern String tempQuery1 = "";
+extern String tempValue1 = "";
+extern unsigned int serverTime;
+extern int serverTimeH;
+extern int serverTimeM;
+extern int serverTimeS;
 
 void getRequest() {
   HTTPClient http;

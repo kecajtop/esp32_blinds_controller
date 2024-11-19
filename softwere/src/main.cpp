@@ -13,7 +13,9 @@
 #include "macros.h"
 #include "simple_tft.h"
 #include "fw_upgrade.h"
-#include <setup.h>
+#include "setup.h"
+#include "screen_elements.h"
+#include "screens.h"
 #include <XPT2046_Touchscreen.h>
 
 #include <TFT_eSPI.h> // Graphics and font library for ST7735 driver chip
@@ -48,6 +50,13 @@ config_t settings;
 
 static uint32_t prev_ms = 0;
 
+String tempQuery1 = "";
+String tempValue1 = "";
+unsigned int serverTime;
+int serverTimeH;
+int serverTimeM;
+int serverTimeS;
+
 //I2C UART0 TX 1
 //I2C UART0 RX 3
 
@@ -64,12 +73,6 @@ void setup() {
   
     Serial.begin(115200);
     infoln("Start");
-
-    lv_init();
-    
-    prev_ms = millis();
-
-    lv_log_register_print_cb(log_print);
 
     init_tft();
 
