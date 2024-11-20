@@ -1,5 +1,8 @@
 #include "Arduino.h"
 #include "Wire.h"
+#include "variables.h"
+
+extern int countOfI2cDevices;
 
 void i2c_scanner() {
   Wire.begin();

@@ -16,6 +16,9 @@
 #include "setup.h"
 #include "screen_elements.h"
 #include "screens.h"
+#include "i2c_scanner.h"
+#include "variables.h"
+#include "touch_element.h"
 #include <XPT2046_Touchscreen.h>
 
 #include <TFT_eSPI.h> // Graphics and font library for ST7735 driver chip
@@ -33,7 +36,16 @@ TFT_eSPI tft = TFT_eSPI();  // Invoke library, pins defined in User_Setup.h
 SPIClass touchscreenSPI = SPIClass(VSPI);
 XPT2046_Touchscreen touchscreen(XPT2046_CS, XPT2046_IRQ);
 
-int x, y, z;
+extern int x, y, z;
+extern int lock_key_1;      //zmienna dotyku przyciskow
+extern int screen_changer;  //zmienna kolejnych ekranów w menu
+extern int screen_sum;      //zmienna kolejnych ekranów w menu - suma max
+extern int button_1[];
+extern int sizeOfArray_rollers;
+extern int sizeOfArray_object_areas;
+
+extern byte cn_rollers;  //columns
+extern String rollers[11][9];
 
 // Replace with your network credentials
 

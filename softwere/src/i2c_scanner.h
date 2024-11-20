@@ -3,6 +3,6 @@
 
 #include "Arduino.h"
 
-void i2c_scanner()
+void i2c_scanner();
 
 #endif

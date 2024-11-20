@@ -2,6 +2,15 @@
 #include "macros.h"
 #include <Wifi.h>
 #include <TFT_eSPI.h>
+#include "variables.h"
+#include <XPT2046_Touchscreen.h>
+#include "setup.h"
+#include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+
+extern SPIClass touchscreenSPI;
+extern XPT2046_Touchscreen touchscreen;
 
 void psetup() {
   Serial.begin(9600);

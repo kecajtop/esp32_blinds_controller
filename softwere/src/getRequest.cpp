@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include <HTTPClient.h>
 #include <variables.h>
+#include <getRequest.h>
 
 extern String tempQuery1 = "";
 extern String tempValue1 = "";

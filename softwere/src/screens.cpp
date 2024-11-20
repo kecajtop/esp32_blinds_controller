@@ -2,7 +2,13 @@
 #include "macros.h"
 #include "variables.h"
 #include "screen_elements.h"
+#include "getRequest.h"
 #include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+extern int serverTimeH;
+extern int serverTimeM;
+extern int serverTimeS;
 
 void nav() {
   tft.fillRoundRect(button_1[0], button_1[1], button_1[2], button_1[3], button_1[4], button_colour);

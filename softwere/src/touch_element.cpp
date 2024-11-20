@@ -1,3 +1,25 @@
+#include "Arduino.h"
+#include "touch_element.h"
+#include <XPT2046_Touchscreen.h>
+#include <screen_elements.h>
+#include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+
+extern XPT2046_Touchscreen touchscreen;
+
+extern int x, y, z;
+extern int lock_key_1;      //zmienna dotyku przyciskow
+extern int screen_changer;  //zmienna kolejnych ekranów w menu
+extern int screen_sum;      //zmienna kolejnych ekranów w menu - suma max
+
+extern int button_1[];
+
+extern int sizeOfArray_rollers;
+extern int sizeOfArray_object_areas;
+extern byte cn_rollers;  //columns
+extern String rollers[11][9];
+
 String touch_function() {
   // // Get Touchscreen points
   TS_Point p = touchscreen.getPoint();
