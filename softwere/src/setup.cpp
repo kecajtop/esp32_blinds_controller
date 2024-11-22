@@ -12,6 +12,10 @@ extern TFT_eSPI tft;
 extern SPIClass touchscreenSPI;
 extern XPT2046_Touchscreen touchscreen;
 
+extern int wifiConnectionStatus;
+
+extern String deviceData[];
+
 void psetup() {
   Serial.begin(9600);
 

@@ -62,13 +62,6 @@ config_t settings;
 
 static uint32_t prev_ms = 0;
 
-String tempQuery1 = "";
-String tempValue1 = "";
-unsigned int serverTime;
-int serverTimeH;
-int serverTimeM;
-int serverTimeS;
-
 //I2C UART0 TX 1
 //I2C UART0 RX 3
 
@@ -99,8 +92,6 @@ void setup() {
     set_selftest_tite("INFO");
     
     app_info();
-    
-    lib_info();
 
     clear_display();
 

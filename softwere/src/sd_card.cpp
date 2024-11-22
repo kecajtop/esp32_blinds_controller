@@ -2,8 +2,6 @@
 #include <SD.h>
 #include <Update.h>
 #include "macros.h"
-#include "lvgl.h"
-#include "misc/lv_event.h"
 #include "sd_card.h"
 
 const char *CSV_EXT = "p.csv";

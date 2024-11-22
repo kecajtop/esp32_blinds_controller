@@ -12,6 +12,4 @@ const char * build_date(void);
 
 void app_info(void);
 
-void lib_info(void);
-
 #endif

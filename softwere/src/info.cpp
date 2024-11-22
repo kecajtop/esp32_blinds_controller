@@ -1,20 +1,11 @@
 #include "Arduino.h"
 #include <rom/rtc.h>
 #include "macros.h"
-#include "lvgl.h"
 #include "config.h"
 #include "simple_tft.h"
 #include "info.h"
 
 const char compile_date[] = __DATE__ " " __TIME__;
-
-void lib_info(void)
-{
-    String LVGL_Arduino = "\tLVGL: ";
-    display_selftest_msg("LVGL", LVGL_Arduino.c_str());
-    LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
-    print_kln( LVGL_Arduino );
-}
 
 void app_info(void)
 {	

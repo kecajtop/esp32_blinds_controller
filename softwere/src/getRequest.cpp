@@ -3,12 +3,14 @@
 #include <variables.h>
 #include <getRequest.h>
 
-extern String tempQuery1 = "";
-extern String tempValue1 = "";
+extern String tempQuery1;
+extern String tempValue1;
 extern unsigned int serverTime;
 extern int serverTimeH;
 extern int serverTimeM;
 extern int serverTimeS;
+
+extern String deviceData[];
 
 void getRequest() {
   HTTPClient http;
