@@ -17,7 +17,7 @@ extern int wifiConnectionStatus;
 extern String deviceData[];
 
 void psetup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   /***********HTML**************/
   String ssid_read_1 = deviceData[0];
@@ -31,12 +31,26 @@ void psetup() {
 
   const char* ssid_client = ssid_eeprom_read;
   const char* password_client = pass_eeprom_read;
-
+  uint16_t i = 0;
+  uint16_t n = 0;
   WiFi.begin(ssid_client, password_client);
   Serial.println("Connecting");
   while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
+    print_k('.');
+    i++;
+    n++;
+    delay(100);
+    if (n>50)
+    {
+        n = 0;
+        print_kln();
+    }
+    if (i>100)
+    {
+      print_kln();
+      msgln("WiFi Connection Failed");
+      break;
+    }
   }
   wifiConnectionStatus=1;  //polaczono
   Serial.print("IP:");
