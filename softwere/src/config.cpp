@@ -10,7 +10,7 @@ extern const char* test_file_name;
 
 int sd_config_status = 0;
 
-int load_config(void)
+void load_config(int *_result)
 {
 
   settings.start = 0;
@@ -116,7 +116,7 @@ int load_config(void)
 
 	}
 	msgln("Done");
-	return sd_config_status;
+	*_result = sd_config_status;
 }
 
 bool SD_available(const __FlashStringHelper * key) {

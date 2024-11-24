@@ -10,6 +10,8 @@ void print_reset_reason(RESET_REASON reason);
 
 const char * build_date(void);
 
-void app_info(void);
+void app_info(int *_result);
+
+void display_info();
 
 #endif

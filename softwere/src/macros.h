@@ -6,6 +6,14 @@
 		//Serial.print(": ");\
 //    	//Serial.print(__FILENAME__);\
 
+#define bootln(...)\
+		Serial.print("[B] ");\
+		Serial.println(__VA_ARGS__)
+		
+#define boot(...)\
+		Serial.print("[B] ");\
+		Serial.print(__VA_ARGS__)
+
 #define infoln(...)\
 		Serial.print("[I] ");\
 		Serial.println(__VA_ARGS__)

@@ -38,21 +38,25 @@ char msg[64]; // Character to store
 
 int line = 0;
 
-void init_tft(void)
+void  init_tft(int *_result)
 {
     tft.init();
     tft.setRotation(3);
           // Start the SPI for the touchscreen and init the touchscreen
+    clear_display();
+    *_result = 1;
 }
 
-void init_touchscreen(void)
+void init_touchscreen(int *_result)
 {
     touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
     touchscreen.begin(touchscreenSPI);
     // Set the Touchscreen rotation in landscape mode
     // Note: in some displays, the touchscreen might be upside down, so you might need to set the rotation to 1: touchscreen.setRotation(1);
     touchscreen.setRotation(3);
+    *_result = 1;
 }
+
 void clear_display(void)
 {
     tft.fillScreen(TFT_WHITE);

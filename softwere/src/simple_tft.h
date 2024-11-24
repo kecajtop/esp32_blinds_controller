@@ -14,9 +14,9 @@
 #define ST_DISCONNECTED 7
 
 
-void init_tft(void);
+void init_tft(int *_result);
 
-void init_touchscreen(void);
+void init_touchscreen(int *_result);
 
 void clear_display(void);
 void display_boot_pass_fail(const char * _msg,uint8_t status);

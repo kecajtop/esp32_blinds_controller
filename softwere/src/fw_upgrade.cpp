@@ -5,24 +5,30 @@
 #include "simple_tft.h"
 #include "fw_upgrade.h"
 #include "config.h"
+#include "sd_card.h"
 #include "ESP32OTAPull.h"
 
 ESP32OTAPull ota;
 
-int sd_new_fw(void)
+void sd_new_fw(int *_result)
 {
+  if (get_sd_init())
+  {
     File firmware =  SD.open(_SD_FW_NAME_ESP32);
     
     if (firmware) 
     {
       firmware.close();
       delay(2000);
-      return 1;
+      sd_fw_upgrade();
+      *_result = 1;
     }
     else
     {
-      return 3;
+      *_result = 3;
     }
+  }
+  *_result = 0;
 }
 
 void sd_fw_upgrade(void)

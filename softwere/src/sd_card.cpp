@@ -4,23 +4,25 @@
 #include "macros.h"
 #include "sd_card.h"
 
+int status = 0; 
+
 const char *CSV_EXT = "p.csv";
 int const file_size =12;
 char fname[file_size];
 
 extern char list[512];
 
-
 SPIClass sdSPI(HSPI);
 
-int sd_init()
+void sd_init(int *_result)
 {
     sdSPI.begin(SDSCK, SDMISO, SDMOSI, SDCS);
 
     if (!SD.begin(SDCS, sdSPI)) 
     {
       Serial.println("[E] Card failed, or not present");
-      return 0;
+      *_result = status =  0;
+      return;
     }
     else
     { 
@@ -29,9 +31,15 @@ int sd_init()
       root = SD.open("/");
       Serial.println("[I] SD Card Directory list");
       printDirectory(root, 0);
-      return 1;
+      *_result = status = 1;
+      return;
     }
-    return 0;
+    *_result = status = 0;
+}
+
+int get_sd_init(void)
+{
+  return status;
 }
 
 void removeSubstr (char *string, const char *sub) {

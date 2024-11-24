@@ -42,6 +42,6 @@ String SD_findString(const __FlashStringHelper * key);
 float SD_findFloat(const __FlashStringHelper * key);
 int SD_findInt(const __FlashStringHelper * key);
 bool SD_available(const __FlashStringHelper * key);
-int load_config(void);
+void load_config(int *_result);
 
 #endif

@@ -19,6 +19,7 @@
 #include "i2c_scanner.h"
 #include "variables.h"
 #include "touch_element.h"
+#include "boot.h"
 #include <XPT2046_Touchscreen.h>
 
 #include <TFT_eSPI.h> // Graphics and font library for ST7735 driver chip
@@ -77,65 +78,31 @@ void setup() {
   // put your setup code here, to run once:
   
     Serial.begin(115200);
-    infoln("Start");
-
-    init_tft();
-
-    init_touchscreen();
-
-    clear_display();
-    
-    set_boot_tite("INFO");
-    
-    app_info();
-
-    clear_display();
-
-    set_boot_tite("SELFTEST"); 
-
+    print_k("");
     build_date();
-    
     reset_info();
 
-    stauts = sd_init();
-
-    display_boot_pass_fail("SD CARD",stauts);
+    Init_boot_command (1);
     
-    if (stauts)
-    {
-      stauts = sd_new_fw();
-      if (stauts)
-      {
-        display_boot_pass_fail("SD CARD FW.",stauts);
-        sd_fw_upgrade();
-      }
-    }
+    //init_tft();
+    Add_boot_command ("TFT", init_tft);
+    Add_boot_command ("TOUCH", init_touchscreen);
+    Add_boot_command ("APP_INFO", app_info);
+    Add_boot_command ("SD CARD", sd_init);
+    Add_boot_command ("LOAD CONFIG", load_config);
+    Add_boot_command ("SD CARD FW.", sd_new_fw);
+    Add_boot_command ("WIFI", wifi_config);
 
-    stauts = load_config();
+    set_boot_tite("Boot");
+    Exec_boot_command();
 
-    display_boot_pass_fail("CONFIG TXT",stauts);
+    delay(5000);
+    display_info();
 
-    if (settings.enable_wifi)
-    {
-      print_kln("[M] Enabling WiFi");
-      if (initWiFi("Test"))
-      {
-        display_boot_pass_fail("WIFI",ST_CONNECTED);
-        
-      }
-      else
-      {
-        display_boot_pass_fail("WIFI",ST_DISCONNECTED);
-      }
-    }
-    else
-    {
-      display_boot_pass_fail("WIFI",ST_DISABLED);
-    }
-    
     Wire.begin(SDApin,  SCLpin);
 
     Wire.setClock(I2C_CLKRATE_400K);
+
 
     //init_ams();
 
@@ -155,7 +122,7 @@ void setup() {
     infoln("config done");
 
     tft.setRotation(3);
-
+    
     infoln("Ready!");
 }
 

@@ -7,7 +7,7 @@
 
 const char compile_date[] = __DATE__ " " __TIME__;
 
-void app_info(void)
+void app_info(int *_result)
 {	
   infoln("INFO ");
   print_k("\t");
@@ -15,15 +15,23 @@ void app_info(void)
   //display_selftest_msg("APP_INFO", STR(APP_INFO));
   print_k("\tFW_VERSION: ");
   print_kln(_FW_VERSION_ESP32);
-  display_boot_msg("\tFIRMWARE", _FW_VERSION_ESP32);
+  //display_boot_msg("\tFIRMWARE", _FW_VERSION_ESP32);
   print_k("\tPCB_VERSION: ");
   print_kln(_PCB_VERSION);
+  //display_boot_msg("PCB", _PCB_VERSION);
+  *_result = 1;
+}
+
+void display_info()
+{
+  set_boot_tite("INFO");
+  display_boot_msg("\tFIRMWARE", _FW_VERSION_ESP32);
   display_boot_msg("PCB", _PCB_VERSION);
 }
 
 const char * build_date(void)
 {
-	print_k("\tBuild date: ");
+	print_k("Build date: ");
   print_kln(compile_date);
   return compile_date;
 }

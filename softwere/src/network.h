@@ -11,6 +11,8 @@ typedef enum wifiConnected
         DISCONNECTED
     }wifiConnected_t;
 
+void wifi_config(int *_result);
+
 int initWiFi(const char * host_name);
 
 void get_network_info(void);
