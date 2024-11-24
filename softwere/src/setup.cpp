@@ -33,28 +33,6 @@ void psetup() {
   const char* password_client = pass_eeprom_read;
   uint16_t i = 0;
   uint16_t n = 0;
-  WiFi.begin(ssid_client, password_client);
-  Serial.println("Connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    print_k('.');
-    i++;
-    n++;
-    delay(100);
-    if (n>50)
-    {
-        n = 0;
-        print_kln();
-    }
-    if (i>100)
-    {
-      print_kln();
-      msgln("WiFi Connection Failed");
-      break;
-    }
-  }
-  wifiConnectionStatus=1;  //polaczono
-  Serial.print("IP:");
-  Serial.println(WiFi.localIP());
   /***********HTML**************/
 
 

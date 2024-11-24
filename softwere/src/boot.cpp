@@ -3,7 +3,6 @@
 #include "simple_tft.h"
 #include "boot.h"
 
-
 static cmd_t *cmd_tbl_list, *cmd_tbl;
 static int idx;
 static int config;
