@@ -81,11 +81,7 @@ void setup() {
 
     init_tft();
 
-    touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
-    touchscreen.begin(touchscreenSPI);
-    // Set the Touchscreen rotation in landscape mode
-    // Note: in some displays, the touchscreen might be upside down, so you might need to set the rotation to 1: touchscreen.setRotation(1);
-    touchscreen.setRotation(3);
+    init_touchscreen();
 
     clear_display();
     
@@ -137,20 +133,23 @@ void setup() {
       display_selftest_pass_fail("WIFI",ST_DISABLED);
     }
     
-    //Wire.begin(SDApin,  SCLpin);
+    Wire.begin(SDApin,  SCLpin);
 
-    //Wire.setClock(I2C_CLKRATE_400K);
+    Wire.setClock(I2C_CLKRATE_400K);
 
     //init_ams();
 
     psetup();
-    
+    delay(2000);
+    infoln("nav");
     nav();
-    
+    delay(2000);
+    infoln("screen_1");
     screen_1();
-    
+    delay(2000);
     i2c_scanner();
-
+    infoln("i2c_scanner");
+    delay(2000);
     delay(2000);
 
     infoln("config done");

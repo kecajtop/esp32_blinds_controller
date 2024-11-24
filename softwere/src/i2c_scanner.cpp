@@ -3,9 +3,10 @@
 #include "variables.h"
 
 extern int countOfI2cDevices;
+extern int countOfI2cDevices;
 
 void i2c_scanner() {
-  Wire.begin();
+  //Wire.begin();
   uint8_t error, address;
   int nDevices;
 
