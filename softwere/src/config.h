@@ -7,8 +7,8 @@
 #if __has_include("update_settings.h") // optionally override with values in settings.h
 #include "update_settings.h"
 #else
-#define JSON_URL   "https://raw.githubusercontent.com/kecajtop/cyd_2432S024/main/json/cyd_2432S024.json" // this is where you'll post your JSON filter file
-#define _FW_VERSION_ESP32    "1.0.0" // The current version of this program
+#define JSON_URL   "https://raw.githubusercontent.com/kecajtop/esp32_blinds_controller/main/firmware_pcb_rev01.json" // this is where you'll post your JSON filter file
+#define _FW_VERSION_ESP32    "0.0.1" // The current version of this program
 #define _SD_FW_NAME_ESP32 "/firmwareESP32.bin"
 #define _SD_FW_NAME_ESP32_BAK "/firmwareESP32.bak"
 #define _PCB_VERSION "REV1"
