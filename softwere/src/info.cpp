@@ -15,10 +15,10 @@ void app_info(void)
   //display_selftest_msg("APP_INFO", STR(APP_INFO));
   print_k("\tFW_VERSION: ");
   print_kln(_FW_VERSION_ESP32);
-  display_selftest_msg("\tFIRMWARE", _FW_VERSION_ESP32);
+  display_boot_msg("\tFIRMWARE", _FW_VERSION_ESP32);
   print_k("\tPCB_VERSION: ");
   print_kln(_PCB_VERSION);
-  display_selftest_msg("PCB", _PCB_VERSION);
+  display_boot_msg("PCB", _PCB_VERSION);
 }
 
 const char * build_date(void)

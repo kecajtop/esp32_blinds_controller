@@ -77,7 +77,7 @@ void sd_fw_upgrade(void)
 void progressCallBack(size_t currSize, size_t totalSize) 
 {
     Serial.printf("CALLBACK:  Update process at %d of %d bytes...\n", currSize, totalSize);
-    display_firmware_update_progress(currSize, totalSize);
+    display_progress(currSize, totalSize);
 }
 
 String online_fw_check(void)
@@ -91,7 +91,7 @@ String online_fw_check(void)
 	// After we've checked, we can obtain the version from the JSON file
   String otaVersion = ota.GetVersion();
 	Serial.printf("OTA Version Available: %s\n", otaVersion.c_str());
-  display_selftest_msg("OTA FW.", otaVersion.c_str());
+  display_boot_msg("OTA FW.", otaVersion.c_str());
   return otaVersion;
 }
 
@@ -148,7 +148,7 @@ void callback_percent(int offset, int totallength)
 	if (percent != prev_percent)
 	{
 		Serial.printf("Updating %d of %d (%02d%%)...\n", offset, totallength, 100 * offset / totallength);
-    display_firmware_update_progress(offset, totallength);
+    display_progress(offset, totallength);
 		prev_percent = percent;
 	}
 }

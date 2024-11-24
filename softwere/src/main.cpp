@@ -85,13 +85,13 @@ void setup() {
 
     clear_display();
     
-    set_selftest_tite("INFO");
+    set_boot_tite("INFO");
     
     app_info();
 
     clear_display();
 
-    set_selftest_tite("SELFTEST"); 
+    set_boot_tite("SELFTEST"); 
 
     build_date();
     
@@ -99,38 +99,38 @@ void setup() {
 
     stauts = sd_init();
 
-    display_selftest_pass_fail("SD CARD",stauts);
+    display_boot_pass_fail("SD CARD",stauts);
     
     if (stauts)
     {
       stauts = sd_new_fw();
       if (stauts)
       {
-        display_selftest_pass_fail("SD CARD FW.",stauts);
+        display_boot_pass_fail("SD CARD FW.",stauts);
         sd_fw_upgrade();
       }
     }
 
     stauts = load_config();
 
-    display_selftest_pass_fail("CONFIG TXT",stauts);
+    display_boot_pass_fail("CONFIG TXT",stauts);
 
     if (settings.enable_wifi)
     {
       print_kln("[M] Enabling WiFi");
       if (initWiFi("Test"))
       {
-        display_selftest_pass_fail("WIFI",ST_CONNECTED);
+        display_boot_pass_fail("WIFI",ST_CONNECTED);
         
       }
       else
       {
-        display_selftest_pass_fail("WIFI",ST_DISCONNECTED);
+        display_boot_pass_fail("WIFI",ST_DISCONNECTED);
       }
     }
     else
     {
-      display_selftest_pass_fail("WIFI",ST_DISABLED);
+      display_boot_pass_fail("WIFI",ST_DISABLED);
     }
     
     Wire.begin(SDApin,  SCLpin);

@@ -61,7 +61,7 @@ void clear_display(void)
 void display_off()
 {
     tft.fillScreen(TFT_WHITE);
-    display_selftest_title(msg);
+    display_boot_title(msg);
     tft.setTextColor(TFT_BLACK, TFT_BLACK); // Do not plot the background colour
     tft.setTextDatum(MC_DATUM);
     tft.drawString("GOTOWY", 320/2, 240/2, 4);
@@ -70,7 +70,7 @@ void display_off()
 void display_pass()
 {
     tft.fillScreen(TFT_GREEN);
-    display_selftest_title(msg);
+    display_boot_title(msg);
     tft.setTextColor(TFT_BLACK, TFT_BLACK); // Do not plot the background colour
     tft.setTextDatum(MC_DATUM);
     tft.drawString("OK", 320/2, 240/2, 4);
@@ -79,19 +79,19 @@ void display_pass()
 void display_fail()
 {
     tft.fillScreen(TFT_RED);
-    display_selftest_title(msg);
+    display_boot_title(msg);
     tft.setTextColor(TFT_BLACK, TFT_BLACK); // Do not plot the background colour
     tft.setTextDatum(MC_DATUM);
     tft.drawString("NOK", 320/2, 240/2, 4);
 }
 
-void display_selftest_msg(const char * _msg1, const char * _msg2)
+void display_boot_msg(const char * _msg1, const char * _msg2)
 {
 
     if (line == 0) 
     {
         clear_display();
-        display_selftest_title(st_msg);
+        display_boot_title(st_msg);
     }
 
     line ++;
@@ -111,13 +111,13 @@ void display_selftest_msg(const char * _msg1, const char * _msg2)
     }
 }
 
-void display_selftest_pass_fail(const char * _msg,uint8_t status)
+void display_boot_pass_fail(const char * _msg,uint8_t status)
 {
 
     if (line == 0) 
     {
         clear_display();
-        display_selftest_title(st_msg);
+        display_boot_title(st_msg);
     }
 
     line ++;
@@ -180,9 +180,8 @@ void display_selftest_pass_fail(const char * _msg,uint8_t status)
     }
 }
 
-void set_selftest_tite(const char * _msg)
+void set_boot_tite(const char * _msg)
 {
-    delay(1000);
     strcpy(st_msg, _msg);
     line=0;
 }
@@ -193,7 +192,7 @@ void set_tite(const char * _msg)
     line=0;
 }
 
-void clear_display_selftest_pass_fail()
+void clear_display_boot_pass_fail()
 {
     clear_display();
     line = 0;
@@ -206,7 +205,7 @@ void display_title(const char * _msg)
     tft.drawString(_msg, ST_MSG_X, ST_MSG_Y, PF_FONT);
 }
 
-void display_selftest_title(const char * _msg)
+void display_boot_title(const char * _msg)
 {
     tft.setTextColor(TFT_BLUE, TFT_BLUE); // Do not plot the background colour
     tft.setTextDatum(TC_DATUM);
@@ -248,7 +247,7 @@ void display_firmware_update_restart(void)
 #define PBSTR "####################"
 #define PBWIDTH 20
 
-void display_firmware_update_progress(size_t currSize, size_t totalSize)
+void display_progress(size_t currSize, size_t totalSize)
 {
     float progress = (float)currSize / (float)totalSize;
     tft.setTextColor(TFT_BLACK, TFT_RED); // Do not plot the background colour
