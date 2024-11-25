@@ -108,8 +108,13 @@ void ota_fw_upgrade(int *_result)
 {
   if(WiFi.isConnected())
   {
+      Serial.printf(JSON_URL);
+	int ret = ota.CheckForOTAUpdate(JSON_URL, _FW_VERSION_ESP32, ESP32OTAPull::DONT_DO_UPDATE);
+	Serial.printf("CheckForOTAUpdate returned %d (%s)\n\n", ret, errtext(ret));
+    String otaVersion = ota.GetVersion();
+	Serial.printf("OTA Version Available: %s\n", otaVersion.c_str());
     Serial.printf("Check for update,download and reboot.  Display dots.\n");
-    int ret = ota
+    ret = ota
       .SetCallback(callback_dots)
       .CheckForOTAUpdate(JSON_URL, _FW_VERSION_ESP32, ESP32OTAPull::UPDATE_AND_BOOT);
     Serial.printf("CheckForOTAUpdate returned %d (%s)\n\n", ret, errtext(ret));

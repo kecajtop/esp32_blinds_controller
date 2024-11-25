@@ -8,7 +8,7 @@
 #include "update_settings.h"
 #else
 #define JSON_URL   "https://raw.githubusercontent.com/kecajtop/esp32_blinds_controller/refs/heads/main/json/firmware_pcb_rev01.json" // this is where you'll post your JSON filter file
-#define _FW_VERSION_ESP32    "0.0.1" // The current version of this program
+#define _FW_VERSION_ESP32    "0.0.2" // The current version of this program
 #define _SD_FW_NAME_ESP32 "/firmwareESP32.bin"
 #define _SD_FW_NAME_ESP32_BAK "/firmwareESP32.bak"
 #define _PCB_VERSION "REV1"
@@ -22,7 +22,7 @@ struct config_t
 {
     int enable_wifi;
     int enable_selftest;
-    int auto_load;
+    int ota;
     int start;
     String file_to_load;
     String ssid_wifi;
