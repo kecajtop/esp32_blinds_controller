@@ -16,7 +16,7 @@
 //#include "setup.h"
 //#include "screen_elements.h"
 //#include "screens.h"
-//#include "i2c_scanner.h"
+#include "i2c_expander.h"
 //#include "variables.h"
 //#include "touch_element.h"
 #include "user_app.h"
@@ -64,7 +64,7 @@ void setup() {
     Add_boot_command ("SD CARD FW.", sd_new_fw);
     Add_boot_command ("WIFI", wifi_config);
     Add_boot_command ("JSON FW,", ota_fw_upgrade);
-
+    Add_boot_command ("I2C SETUP", i2c_init);
     set_boot_tite("ESP32 BOOT STATUS");
 
     Exec_boot_command();
@@ -72,9 +72,7 @@ void setup() {
     delay(5000);
     display_info();
 
-    Wire.begin(SDApin,  SCLpin);
 
-    Wire.setClock(I2C_CLKRATE);  
     
     infoln("User Setup");
     tft.setRotation(3);

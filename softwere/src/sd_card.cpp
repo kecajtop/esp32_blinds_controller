@@ -21,7 +21,7 @@ void sd_init(int *_result)
     if (!SD.begin(SDCS, sdSPI)) 
     {
       Serial.println("[E] Card failed, or not present");
-      *_result = status =  0;
+      *_result = status =  0xFF;
       return;
     }
     else

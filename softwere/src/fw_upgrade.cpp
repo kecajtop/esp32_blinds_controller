@@ -30,7 +30,7 @@ void sd_new_fw(int *_result)
       return;
     }
   }
-  *_result = 0;
+  *_result = 0xFF;
   return;
 }
 
@@ -119,12 +119,12 @@ void ota_fw_upgrade(int *_result)
     }
     else
     {
-      *_result =0;
+      *_result =0xFF;
     }
   }
   else
   {
-    *_result =0;
+    *_result =0xFF;
   }
 }
 

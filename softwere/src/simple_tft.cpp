@@ -111,7 +111,7 @@ void display_boot_msg(const char * _msg1, const char * _msg2)
     if (line>=9) 
     {
         line=0;
-        delay(1000);
+        delay(2000);
     }
 }
 

@@ -2,7 +2,7 @@
 #include "screens.h"
 #include "variables.h"
 #include "setup.h"
-#include "i2c_scanner.h"
+#include "i2c_expander.h"
 #include <XPT2046_Touchscreen.h>
 #include <TFT_eSPI.h>
 #include "touch_element.h" 
@@ -32,7 +32,6 @@ void user_setup(void)
     psetup();
     nav();
     screen_1();
-    i2c_scanner();
 }
 
 void user_loop(void)
