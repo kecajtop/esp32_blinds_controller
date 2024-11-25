@@ -18,4 +18,6 @@ void callback_percent(int offset, int totallength);
 
 void callback_dots(int offset, int totallength);
 
+void ota_fw_upgrade(int *_result);
+
 #endif

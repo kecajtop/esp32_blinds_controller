@@ -22,13 +22,16 @@ void sd_new_fw(int *_result)
       delay(2000);
       sd_fw_upgrade();
       *_result = 1;
+      return;
     }
     else
     {
-      *_result = 3;
+      *_result = 0xFF;
+      return;
     }
   }
-  *_result = 0;
+  *_result = 0xFF;
+  return;
 }
 
 void sd_fw_upgrade(void)
@@ -99,6 +102,30 @@ String online_fw_check(void)
 	Serial.printf("OTA Version Available: %s\n", otaVersion.c_str());
   display_boot_msg("OTA FW.", otaVersion.c_str());
   return otaVersion;
+}
+
+void ota_fw_upgrade(int *_result)
+{
+  if(WiFi.isConnected())
+  {
+    Serial.printf("Check for update,download and reboot.  Display dots.\n");
+    int ret = ota
+      .SetCallback(callback_dots)
+      .CheckForOTAUpdate(JSON_URL, _FW_VERSION_ESP32, ESP32OTAPull::UPDATE_AND_BOOT);
+    Serial.printf("CheckForOTAUpdate returned %d (%s)\n\n", ret, errtext(ret));
+    if (ret!=0)
+    {
+      *_result =1;
+    }
+    else
+    {
+      *_result =0xFF;
+    }
+  }
+  else
+  {
+    *_result =0xFF;
+  }
 }
 
 	// Example 2

@@ -149,7 +149,7 @@ int SD_findKey(const __FlashStringHelper * key, char * value) {
   if (!configFile) {
     err(F("SD Card: Issue encountered while attempting to open the file "));
     print_kln(CONFIG_FILE_NAME);
-    sd_config_status = 0;
+    sd_config_status = 0xFF;
     return 0;
   }
   else
