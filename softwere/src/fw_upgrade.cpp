@@ -26,7 +26,7 @@ void sd_new_fw(int *_result)
     }
     else
     {
-      *_result = 3;
+      *_result = 0xFF;
       return;
     }
   }
