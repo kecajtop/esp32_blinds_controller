@@ -69,6 +69,7 @@ void setup() {
 
     Exec_boot_command();
 
+    init_ini();
     delay(5000);
     display_info();
 

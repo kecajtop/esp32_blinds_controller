@@ -59,7 +59,7 @@ static int ini_read(char *buffer, int size, INI_FILETYPE *file)
 static int ini_write(char *buffer, INI_FILETYPE *file)
 {
     int size = strlen(buffer);
-    return ( file->write(buffer, size) > 0);
+    return ( file->write((const uint8_t*)buffer, size) > 0);
 }
 
 static int ini_rename(const char *source, const char *dest)
@@ -71,7 +71,7 @@ static int ini_rename(const char *source, const char *dest)
     if(dstFile.name()[0] == 0) return 0;
     
     const int BUFF_SIZE = 512;
-    char buffer[BUFF_SIZE];
+    uint8_t buffer[BUFF_SIZE];
     int size;
     while((size = srcFile.available()) > 0){
         if(size > BUFF_SIZE) size = BUFF_SIZE;

@@ -21,10 +21,7 @@
 struct config_t
 {
     int enable_wifi;
-    int enable_selftest;
     int ota;
-    int start;
-    String file_to_load;
     String ssid_wifi;
     String password_wifi;
 };
@@ -33,6 +30,8 @@ struct pattern_struct_t //place for hard coded pattern
 {
   uint32_t pattern[128][4];
 };
+
+void init_ini();
 
 String HELPER_ascii2String(char *ascii, int length);
 float HELPER_ascii2Float(char *ascii, int length);

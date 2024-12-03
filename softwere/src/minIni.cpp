@@ -20,6 +20,8 @@
  *  Version: $Id: minIni.c 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
  */
 
+#include "macros.h"
+
 #if (defined _UNICODE || defined __UNICODE__ || defined UNICODE) && !defined INI_ANSIONLY
 # if !defined UNICODE   /* for Windows */
 #   define UNICODE
@@ -312,7 +314,7 @@ int ini_gets(const TCHAR *Section, const TCHAR *Key, const TCHAR *DefValue,
 {
   INI_FILETYPE fp;
   int ok = 0;
-
+  msgln("here21");
   if (Buffer == NULL || BufferSize <= 0 || Key == NULL)
     return 0;
   if (ini_openread(Filename, &fp)) {

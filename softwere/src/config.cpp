@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "config.h"
 #include "macros.h"
+#include <minIni.h>
 #include <SD.h>
 
 extern config_t settings;
@@ -10,51 +11,146 @@ extern const char* test_file_name;
 
 int sd_config_status = 0;
 
+static void assert_my(bool cond)
+{
+  if(!cond){
+    Serial.println("Error");
+    while(true){;}
+  }else{
+    Serial.println("OK");
+  }
+}
+
+static void assert_my(String s1, String s2)
+{
+  Serial.print("<");
+  Serial.print(s1.c_str());
+  Serial.print("> <");
+  Serial.print(s2.c_str());
+  Serial.print(">  ");
+  
+  assert_my(s1 == s2);
+}
+
+static void assert_my(int d1, int d2)
+{
+  Serial.print("(");
+  Serial.print(d1);
+  Serial.print(") (");
+  Serial.print(d2);
+  Serial.print(")  ");
+  
+  assert_my(d1 == d2);
+}
+
+void init_ini()
+{
+  msgln("here1");
+  minIni ini("test.ini");
+  minIni ini2("plain.ini");
+  msgln("here2");
+  String s;
+  msgln("here2.5");
+  /* string reading */
+  s = ini.gets( "first", "string" , "aap" );
+  msgln("here3");
+  assert_my(s, "noot");
+  msgln("here4");
+  s = ini.gets( "second", "string" , "aap" );
+  assert_my(s, "mies");
+  s = ini.gets( "first", "dummy" , "aap" );
+  assert_my(s, "aap");
+  /* ----- */
+  s = ini2.gets( "", "string" , "aap" );
+  assert_my(s, "noot");
+  /* ----- */
+  Serial.println("1. String reading tests passed");
+
+  /* value reading */
+  long n;
+  n = ini.getl("first", "val", -1 );
+  assert_my(n, 1);
+  n = ini.getl("second", "val", -1);
+  assert_my(n, 2);
+  n = ini.getl("first", "dummy", -1);
+  assert_my(n, -1);
+  /* ----- */
+  n = ini2.getl("", "val", -1);
+  assert_my(n, 1);
+  /* ----- */
+  Serial.println("2. Value reading tests passed");
+
+
+  /* string writing */
+  bool b;
+  b = ini.put("first", "alt", "flagged as \"correct\"");
+  assert_my(b);
+  s = ini.gets("first", "alt", "aap");
+  assert_my(s, "flagged as \"correct\"");
+
+  b = ini.put("second", "alt", "correct");
+  assert_my(b);
+  s = ini.gets("second", "alt", "aap");
+  assert_my(s, "correct");
+
+  b = ini.put("third", "alt", "correct");
+  assert_my(b);
+  s = ini.gets("third", "alt", "aap" );
+  assert_my(s, "correct");
+  /* ----- */
+  b = ini2.put("", "alt", "correct");
+  assert(b);
+  s = ini2.gets("", "alt", "aap" );
+  assert_my(s, "correct");
+  /* ----- */
+  Serial.println("3. String writing tests passed");
+
+  /* section/key enumeration */
+  Serial.println("4. section/key enumeration; file contents follows");
+  String section;
+  for (int is = 0; section = ini.getsection(is), section.length() > 0; is++) {
+    Serial.print("    [");
+    Serial.print(section.c_str());
+    Serial.println("]");
+    for (int ik = 0; s = ini.getkey(section, ik), s.length() > 0; ik++) {
+      Serial.print("\t");
+      Serial.println(s.c_str());
+    }
+  }
+
+  /* string deletion */
+  b = ini.del("first", "alt");
+  assert_my(b);
+  b = ini.del("second", "alt");
+  assert_my(b);
+  b = ini.del("third");
+  assert_my(b);
+  /* ----- */
+  b = ini2.del("", "alt");
+  assert_my(b);
+  /* ----- */
+  Serial.println("5. string deletion passed ");
+  
+  while(true){;}
+}
+
 void load_config(int *_result)
 {
 
-  settings.start = 0;
-
 	char value_string[VALUE_MAX_LENGTH];
 	msgln("Loading config from SD CARD ... ");
-	if (SD_findKey(F("enable_selftest"), value_string))
-	{
-		settings.enable_selftest    = SD_findInt(F("enable_selftest"));
-		print_k(F("\t enable_selftest = "));
-    print_kln(settings.enable_selftest);
-	}
-	else
-	{
-		settings.enable_selftest = 1;
-		Serial.print(F("\t enable_selftest = not found, default = "));
-		print_kln(settings.enable_selftest);
-	}
 
   if (SD_findKey(F("auto_load"), value_string))
 	{
-		settings.auto_load    = SD_findInt(F("auto_load"));
-		Serial.print(F("\t auto_load = "));
-    print_kln(settings.auto_load);
+		settings.ota    = SD_findInt(F("ota"));
+		Serial.print(F("\t ota = "));
+    print_kln(settings.ota);
 	}
 	else
 	{
-		settings.auto_load = 0;
-		Serial.print(F("\t auto_load = not found, default = "));
-		print_kln(settings.auto_load);
-	}
-
-  if (SD_findKey(F("file_to_load"), value_string))
-	{
-		settings.file_to_load    = SD_findInt(F("file_to_load"));
-		Serial.print(F("\t file_to_load = "));
-    print_kln(settings.file_to_load);
-    test_file_name = settings.file_to_load.c_str();
-	}
-	else
-	{
-    settings.file_to_load = "test";
-		Serial.print(F("\t file_to_load = not found, default = "));
-		print_kln(settings.file_to_load);
+		settings.ota = 0;
+		Serial.print(F("\t ota = not found, default = "));
+		print_kln(settings.ota);
 	}
 
 	if (SD_findKey(F("enable_wifi"), value_string))
