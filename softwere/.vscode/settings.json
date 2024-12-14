@@ -12,6 +12,7 @@
         "array": "cpp",
         "string_view": "cpp",
         "initializer_list": "cpp",
-        "cstddef": "cpp"
+        "cstddef": "cpp",
+        "fstream": "cpp"
     }
 }

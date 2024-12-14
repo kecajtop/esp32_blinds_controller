@@ -30,6 +30,8 @@ TFT_eSPI tft = TFT_eSPI();  // Invoke library, pins defined in User_Setup.h
 SPIClass touchscreenSPI = SPIClass(VSPI);
 XPT2046_Touchscreen touchscreen(XPT2046_CS, XPT2046_IRQ);
 
+motor my_motor[8];
+
 const char* ssid; //= "";
 const char* password; //= "";
 
@@ -78,11 +80,17 @@ void setup() {
     infoln("User Setup");
     tft.setRotation(3);
     user_setup();
+    for (int i=0;i<8;i++)
+    {
+      my_motor[i].begin(i);
+    }
+
     infoln("Ready!");
 }
 
 void loop() 
 {
   user_loop();
+  my_motor[0].motor_close(1);
 }
 
