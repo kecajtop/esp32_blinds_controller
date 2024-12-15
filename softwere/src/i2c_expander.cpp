@@ -133,7 +133,7 @@ void display_MCP23008_present(uint8_t _adr)
 
 void motor::begin(uint8_t _adr)
 {
-    adr = MCP23008_ADDRESS + _adr;
+    adr = _adr;
     motor_stop(1);
     motor_stop(2);
 }
