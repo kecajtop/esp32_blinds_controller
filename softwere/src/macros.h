@@ -41,6 +41,9 @@
 #define print_k(...)\
 		Serial.print(__VA_ARGS__)
 
+#define printf_k(...)\
+		Serial.printf(__VA_ARGS__)
+
 #define print_kln(...)\
 		Serial.println(__VA_ARGS__)
 

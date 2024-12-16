@@ -20,7 +20,7 @@ unsigned long last = 0;
 
 void wifi_config(int *_result)
 {
-    if (settings.enable_wifi)
+    if (settings.wifi.enable)
     {
       print_kln("[M] Enabling WiFi");
       if (initWiFi("Test"))

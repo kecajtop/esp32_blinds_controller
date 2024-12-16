@@ -2,6 +2,7 @@
 #include "config.h"
 #include "macros.h"
 #include <minIni.h>
+#include <string>
 #include <SD.h>
 
 extern config_t settings;
@@ -43,20 +44,29 @@ static void assert_my(int d1, int d2)
   assert_my(d1 == d2);
 }
 
-void init_ini()
+void init_ini(int *_result)
 {
   msgln("Loading Settings from SD CARD ... ");
   minIni ini("/settings.ini");
-  String s;
-  Serial.printf("\t WIFI");
-  settings.ssid_wifi = ini.gets( "WIFI", "SSID" , STR(WIFI_SSID) );
-  Serial.printf("\t SSID = %s",settings.ssid_wifi);
-  settings.password_wifi = ini.gets( "WIFI", "PASS" , STR(WIFI_PASSWORD) );
-  Serial.printf("\t PASS = %s",settings.password_wifi);
+
+  printf_k("[I] WIFI\r\n");
+  settings.wifi.ssid = ini.gets( "WIFI", "SSID" , STR(WIFI_SSID) );
+  printf_k("\t SSID = %s\r\n",settings.wifi.ssid.c_str());
+  settings.wifi.password = ini.gets( "WIFI", "PASS" , STR(WIFI_PASSWORD) );
+  printf_k("\t PASS = %s\r\n",settings.wifi.password.c_str());
+  settings.wifi.enable = (ini.gets( "WIFI", "ENABLE" , STR(WIFI_ENABLE) )).toInt();
+  printf_k("\t ENABLE_WIFI = %d\r\n",settings.wifi.enable);
+  settings.ota.enable= (ini.gets( "OTA", "ENABLE" , STR(OTA_ENABLE) )).toInt();
+  printf_k("\t OTA = %d\r\n",settings.ota.enable);
+
+  ssid = settings.wifi.ssid.c_str();
+  password = settings.wifi.password.c_str();
+  *_result = 1;
+  
   msgln("Done");
 }
 
-void load_config(int *_result)
+/*void load_config(int *_result)
 {
 
 	char value_string[VALUE_MAX_LENGTH];
@@ -136,6 +146,7 @@ void load_config(int *_result)
 	msgln("Done");
 	*_result = sd_config_status;
 }
+*/
 
 bool SD_available(const __FlashStringHelper * key) {
   char value_string[VALUE_MAX_LENGTH];

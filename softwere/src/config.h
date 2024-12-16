@@ -18,12 +18,23 @@
 #define KEY_MAX_LENGTH    30 // change it if key is longer
 #define VALUE_MAX_LENGTH  30 // change it if value is longer
 
+struct wifi_t
+{
+  int enable;
+  String ssid;
+  String password;
+};
+
+struct ota_t
+{
+  int enable;
+};
+
 struct config_t
 {
-    int enable_wifi;
-    int ota;
-    String ssid_wifi;
-    String password_wifi;
+  wifi_t wifi;
+  ota_t ota;
+
 };
 
 struct pattern_struct_t //place for hard coded pattern
@@ -31,7 +42,7 @@ struct pattern_struct_t //place for hard coded pattern
   uint32_t pattern[128][4];
 };
 
-void init_ini();
+void init_ini(int *_result);
 
 String HELPER_ascii2String(char *ascii, int length);
 float HELPER_ascii2Float(char *ascii, int length);
