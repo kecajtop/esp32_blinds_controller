@@ -20,26 +20,33 @@
 
 struct wifi_t
 {
-  int enable;
+  uint8_t enable;
   String ssid;
   String password;
 };
 
 struct ota_t
 {
-  int enable;
+  uint8_t enable;
+};
+
+struct cover_t
+{
+  String name;
+  uint32_t map_number;
+  String name_up;
+  String name_down;
+  uint32_t close_time;
+  uint32_t open_time;
+  uint8_t invert;
 };
 
 struct config_t
 {
   wifi_t wifi;
   ota_t ota;
-
-};
-
-struct pattern_struct_t //place for hard coded pattern
-{
-  uint32_t pattern[128][4];
+  String name;
+  cover_t cover[16];
 };
 
 void init_ini(int *_result);
