@@ -45,93 +45,15 @@ static void assert_my(int d1, int d2)
 
 void init_ini()
 {
-  msgln("here1");
-  minIni ini("test.ini");
-  minIni ini2("plain.ini");
-  msgln("here2");
+  msgln("Loading Settings from SD CARD ... ");
+  minIni ini("/settings.ini");
   String s;
-  msgln("here2.5");
-  /* string reading */
-  s = ini.gets( "first", "string" , "aap" );
-  msgln("here3");
-  assert_my(s, "noot");
-  msgln("here4");
-  s = ini.gets( "second", "string" , "aap" );
-  assert_my(s, "mies");
-  s = ini.gets( "first", "dummy" , "aap" );
-  assert_my(s, "aap");
-  /* ----- */
-  s = ini2.gets( "", "string" , "aap" );
-  assert_my(s, "noot");
-  /* ----- */
-  Serial.println("1. String reading tests passed");
-
-  /* value reading */
-  long n;
-  n = ini.getl("first", "val", -1 );
-  assert_my(n, 1);
-  n = ini.getl("second", "val", -1);
-  assert_my(n, 2);
-  n = ini.getl("first", "dummy", -1);
-  assert_my(n, -1);
-  /* ----- */
-  n = ini2.getl("", "val", -1);
-  assert_my(n, 1);
-  /* ----- */
-  Serial.println("2. Value reading tests passed");
-
-
-  /* string writing */
-  bool b;
-  b = ini.put("first", "alt", "flagged as \"correct\"");
-  assert_my(b);
-  s = ini.gets("first", "alt", "aap");
-  assert_my(s, "flagged as \"correct\"");
-
-  b = ini.put("second", "alt", "correct");
-  assert_my(b);
-  s = ini.gets("second", "alt", "aap");
-  assert_my(s, "correct");
-
-  b = ini.put("third", "alt", "correct");
-  assert_my(b);
-  s = ini.gets("third", "alt", "aap" );
-  assert_my(s, "correct");
-  /* ----- */
-  b = ini2.put("", "alt", "correct");
-  assert(b);
-  s = ini2.gets("", "alt", "aap" );
-  assert_my(s, "correct");
-  /* ----- */
-  Serial.println("3. String writing tests passed");
-
-  /* section/key enumeration */
-  Serial.println("4. section/key enumeration; file contents follows");
-  String section;
-  for (int is = 0; section = ini.getsection(is), section.length() > 0; is++) {
-    Serial.print("    [");
-    Serial.print(section.c_str());
-    Serial.println("]");
-    for (int ik = 0; s = ini.getkey(section, ik), s.length() > 0; ik++) {
-      Serial.print("\t");
-      Serial.println(s.c_str());
-    }
-  }
-
-  /* string deletion */
-  b = ini.del("first", "alt");
-  assert_my(b);
-  b = ini.del("second", "alt");
-  assert_my(b);
-  b = ini.del("third");
-  assert_my(b);
-  /* ----- */
-  b = ini2.del("", "alt");
-  assert_my(b);
-  /* ----- */
-  Serial.println("5. string deletion passed ");
-  
-  while(true){;}
+  Serial.printf("\t WIFI");
+  settings.ssid_wifi = ini.gets( "WIFI", "SSID" , STR(WIFI_SSID) );
+  Serial.printf("\t SSID = %s",settings.ssid_wifi);
+  settings.password_wifi = ini.gets( "WIFI", "PASS" , STR(WIFI_PASSWORD) );
+  Serial.printf("\t PASS = %s",settings.password_wifi);
+  msgln("Done");
 }
 
 void load_config(int *_result)
@@ -242,7 +164,7 @@ String SD_findString(const __FlashStringHelper * key) {
 int SD_findKey(const __FlashStringHelper * key, char * value) {
   File configFile = SD.open(CONFIG_FILE_NAME);
 
-  if (!configFile) {
+  if (!configFile) {  
     err(F("SD Card: Issue encountered while attempting to open the file "));
     print_kln(CONFIG_FILE_NAME);
     sd_config_status = 0xFF;

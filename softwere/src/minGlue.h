@@ -11,20 +11,24 @@
 /* map required file I/O types and functions to the standard C library */
 #include <stdio.h>
 #include <Arduino.h>
+#include <stdio.h>
+#include <macros.h>
 #include <SD.h>
 
 #define INI_FILETYPE                    File
 
 static int ini_openread(const char* filename, INI_FILETYPE *file)
 {
+    //msgln("here21");
     *file = SD.open(filename, FILE_READ);
-    return ( (file->name())[0] != 0 );
+    //msgln("here21");
+    return 1;//( (file->name())[0] != 0 );
 }
 
 static int ini_openwrite(const char* filename, INI_FILETYPE *file)
 {
     *file = SD.open(filename, FILE_WRITE);
-    return ( (file->name())[0] != 0 );
+    return 1;//( (file->name())[0] != 0 );
 }
 
 // #define ini_openrewrite(filename,file)   not defined
@@ -43,6 +47,7 @@ static int ini_read(char *buffer, int size, INI_FILETYPE *file)
         if(file->available() > 0){
             char c = file->read();
             buffer[i] = c;
+            //print_k(c);
             if(c == '\n'){
                 i++;
                 break;
