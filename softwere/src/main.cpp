@@ -45,8 +45,6 @@ config_t settings;
 
 char data_block[128]; 
 
-pattern_struct_t pattern;
-
 void setup() {
   // put your setup code here, to run once:
   
