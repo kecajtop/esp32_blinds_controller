@@ -1,6 +1,7 @@
 #include <Wifi.h>
 #include <ArduinoOTA.h>
 #include "macros.h"
+#include "config.h"
 #include "network.h"
 
 #define TIME_ZONE_OFFSET_HRS 1 // UTC+1 for Germany, winter time
@@ -11,10 +12,31 @@ wifiConnected_t wifiConnected;
 extern const char* ssid;
 extern const char* password;
 extern uint8_t start_flag;
+extern config_t settings;
 
 static bool wifiFirstConnected;
 
 unsigned long last = 0;
+
+void wifi_config(int *_result)
+{
+    if (settings.wifi.enable)
+    {
+      print_kln("[M] Enabling WiFi");
+      if (initWiFi("Test"))
+      {
+        *_result = 6;
+      }
+      else
+      {
+        *_result = 7;
+      }
+    }
+    else
+    {
+      *_result = 4;
+    }
+}
 
 int initWiFi(const char *host_name) 
 {

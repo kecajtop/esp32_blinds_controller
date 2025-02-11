@@ -6,7 +6,7 @@
 
 void sd_fw_upgrade(void);
 
-int sd_new_fw(void);
+void sd_new_fw(int *_result);
 
 void progressCallBack(size_t currSize, size_t totalSize);
 
@@ -17,5 +17,7 @@ const char *errtext(int code);
 void callback_percent(int offset, int totallength);
 
 void callback_dots(int offset, int totallength);
+
+void ota_fw_upgrade(int *_result);
 
 #endif

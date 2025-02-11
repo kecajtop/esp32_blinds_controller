@@ -2,7 +2,52 @@
 #include "macros.h"
 #include "variables.h"
 #include "screen_elements.h"
+#include "getRequest.h"
 #include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+extern int serverTimeH;
+extern int serverTimeM;
+extern int serverTimeS;
+
+extern uint32_t button_colour;
+extern uint32_t button_insert_colour;
+extern uint32_t empty_colour;
+
+extern int screen_changer;
+extern byte fontHeigh;
+
+extern int sizeOfArray_object_areas;
+
+extern String object_areas[6][2];
+extern String rollers[11][9];
+
+extern int wifiConnectionStatus;
+
+extern int countOfI2cDevices;
+
+extern int sizeOfArray_rollers;
+
+extern String deviceData[];
+
+extern String button_label_1;
+extern int button_1[];
+extern String button_label_2;
+extern int button_2[];
+extern String button_label_3;
+extern int button_up[];
+extern String button_label_4;
+extern int button_down[];
+
+//Panele:
+extern int buttons_positions[6][5];
+
+extern String buttons_names[6];
+
+//check-box
+extern uint8_t cb_y1;
+extern uint8_t frame1;
+extern uint8_t cb_row_space;
 
 void nav() {
   tft.fillRoundRect(button_1[0], button_1[1], button_1[2], button_1[3], button_1[4], button_colour);

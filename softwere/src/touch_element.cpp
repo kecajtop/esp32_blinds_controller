@@ -1,3 +1,53 @@
+#include "Arduino.h"
+#include "touch_element.h"
+#include <XPT2046_Touchscreen.h>
+#include <screen_elements.h>
+#include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+
+extern XPT2046_Touchscreen touchscreen;
+
+extern int x, y, z;
+extern int lock_key_1;      //zmienna dotyku przyciskow
+extern int screen_changer;  //zmienna kolejnych ekranów w menu
+extern int screen_sum;      //zmienna kolejnych ekranów w menu - suma max
+
+extern int button_1[];
+
+extern int sizeOfArray_rollers;
+extern int sizeOfArray_object_areas;
+extern byte cn_rollers;  //columns
+extern String rollers[11][9];
+
+extern uint32_t button_colour;
+extern uint32_t button_insert_colour;
+extern uint32_t empty_colour;
+
+extern byte cn_object_areas;//columns
+extern String object_areas[6][2];
+
+extern unsigned long start_millis_time;
+
+extern String button_label_1;
+extern int button_1[];
+extern String button_label_2;
+extern int button_2[];
+extern String button_label_3;
+extern int button_up[];
+extern String button_label_4;
+extern int button_down[];
+
+//Panele:
+extern int buttons_positions[6][5];
+
+extern String buttons_names[6];
+
+//check-box
+extern uint8_t cb_y1;
+extern uint8_t frame1;
+extern uint8_t cb_row_space;
+
 String touch_function() {
   // // Get Touchscreen points
   TS_Point p = touchscreen.getPoint();

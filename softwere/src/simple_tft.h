@@ -14,19 +14,22 @@
 #define ST_DISCONNECTED 7
 
 
-void init_tft();
+void init_tft(int *_result);
+
+void init_touchscreen(int *_result);
+
 void clear_display(void);
-void display_selftest_pass_fail(const char * _msg,uint8_t status);
-void display_selftest_title(const char * _msg);
-void display_selftest_msg(const char * _msg1, const char * _msg2);
-void set_selftest_tite(const char * _msg);
+void display_boot_pass_fail(const char * _msg,uint8_t status);
+void display_boot_title(const char * _msg);
+void display_boot_msg(const char * _msg1, const char * _msg2);
+void set_boot_tite(const char * _msg);
 void set_tite(const char * _msg);
 void display_firmware_update(void);
 void display_firmware_update_ok(void);
 void display_firmware_update_fail(void);
 void display_firmware_update_restart(void);
-void display_firmware_update_progress(size_t currSize, size_t totalSize);
-void clear_display_selftest_pass_fail();
+void display_progress(size_t currSize, size_t totalSize);
+void clear_display_boot_pass_fail();
 
 void display_pass();
 void display_fail();

@@ -1,19 +1,23 @@
 #include "Arduino.h"
 #include <HTTPClient.h>
 #include <variables.h>
+#include "macros.h"
+#include <getRequest.h>
 
-extern String tempQuery1 = "";
-extern String tempValue1 = "";
+extern String tempQuery1;
+extern String tempValue1;
 extern unsigned int serverTime;
 extern int serverTimeH;
 extern int serverTimeM;
 extern int serverTimeS;
 
+extern String deviceData[];
+
 void getRequest() {
   HTTPClient http;
   String HOST_NAME = String(deviceData[2]);   // REPLACE WITH YOUR PC's IP ADDRESS
   String PHP_FILE_NAME = String(deviceData[3]);  //REPLACE WITH YOUR PHP FILE NAME
-  String server = "";
+  String server = STR(SERVER_ADDRESS);
 
   //server = HOST_NAME + PHP_FILE_NAME + tempQuery0 + tempValue0 + "&" + tempQuery1 + tempValue1;
   server = HOST_NAME + PHP_FILE_NAME + tempQuery1 + tempValue1;
