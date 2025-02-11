@@ -5,24 +5,33 @@
 #include "simple_tft.h"
 #include "fw_upgrade.h"
 #include "config.h"
+#include "sd_card.h"
 #include "ESP32OTAPull.h"
 
 ESP32OTAPull ota;
 
-int sd_new_fw(void)
+void sd_new_fw(int *_result)
 {
+  if (get_sd_init())
+  {
     File firmware =  SD.open(_SD_FW_NAME_ESP32);
     
     if (firmware) 
     {
       firmware.close();
       delay(2000);
-      return 1;
+      sd_fw_upgrade();
+      *_result = 1;
+      return;
     }
     else
     {
-      return 3;
+      *_result = 0xFF;
+      return;
     }
+  }
+  *_result = 0xFF;
+  return;
 }
 
 void sd_fw_upgrade(void)
@@ -77,7 +86,7 @@ void sd_fw_upgrade(void)
 void progressCallBack(size_t currSize, size_t totalSize) 
 {
     Serial.printf("CALLBACK:  Update process at %d of %d bytes...\n", currSize, totalSize);
-    display_firmware_update_progress(currSize, totalSize);
+    display_progress(currSize, totalSize);
 }
 
 String online_fw_check(void)
@@ -91,8 +100,37 @@ String online_fw_check(void)
 	// After we've checked, we can obtain the version from the JSON file
   String otaVersion = ota.GetVersion();
 	Serial.printf("OTA Version Available: %s\n", otaVersion.c_str());
-  display_selftest_msg("OTA FW.", otaVersion.c_str());
+  display_boot_msg("OTA FW.", otaVersion.c_str());
   return otaVersion;
+}
+
+void ota_fw_upgrade(int *_result)
+{
+  if(WiFi.isConnected())
+  {
+      Serial.printf(JSON_URL);
+	int ret = ota.CheckForOTAUpdate(JSON_URL, _FW_VERSION_ESP32, ESP32OTAPull::DONT_DO_UPDATE);
+	Serial.printf("CheckForOTAUpdate returned %d (%s)\n\n", ret, errtext(ret));
+    String otaVersion = ota.GetVersion();
+	Serial.printf("OTA Version Available: %s\n", otaVersion.c_str());
+    Serial.printf("Check for update,download and reboot.  Display dots.\n");
+    ret = ota
+      .SetCallback(callback_dots)
+      .CheckForOTAUpdate(JSON_URL, _FW_VERSION_ESP32, ESP32OTAPull::UPDATE_AND_BOOT);
+    Serial.printf("CheckForOTAUpdate returned %d (%s)\n\n", ret, errtext(ret));
+    if (ret!=0)
+    {
+      *_result =1;
+    }
+    else
+    {
+      *_result =0xFF;
+    }
+  }
+  else
+  {
+    *_result =0xFF;
+  }
 }
 
 	// Example 2
@@ -148,7 +186,7 @@ void callback_percent(int offset, int totallength)
 	if (percent != prev_percent)
 	{
 		Serial.printf("Updating %d of %d (%02d%%)...\n", offset, totallength, 100 * offset / totallength);
-    display_firmware_update_progress(offset, totallength);
+    display_progress(offset, totallength);
 		prev_percent = percent;
 	}
 }

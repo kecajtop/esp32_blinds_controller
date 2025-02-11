@@ -6,6 +6,14 @@
 		//Serial.print(": ");\
 //    	//Serial.print(__FILENAME__);\
 
+#define bootln(...)\
+		Serial.print("[B] ");\
+		Serial.println(__VA_ARGS__)
+		
+#define boot(...)\
+		Serial.print("[B] ");\
+		Serial.print(__VA_ARGS__)
+
 #define infoln(...)\
 		Serial.print("[I] ");\
 		Serial.println(__VA_ARGS__)
@@ -32,6 +40,9 @@
 
 #define print_k(...)\
 		Serial.print(__VA_ARGS__)
+
+#define printf_k(...)\
+		Serial.printf(__VA_ARGS__)
 
 #define print_kln(...)\
 		Serial.println(__VA_ARGS__)

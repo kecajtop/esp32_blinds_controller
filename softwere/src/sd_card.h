@@ -8,7 +8,8 @@
 
 #include "Arduino.h"
 
-int sd_init();
+void sd_init(int *_result);
+int get_sd_init(void);
 void printDirectory(File dir, int numTabs);
 
 #endif

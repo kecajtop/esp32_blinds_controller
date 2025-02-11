@@ -20,6 +20,8 @@
  *  Version: $Id: minIni.c 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
  */
 
+#include "macros.h"
+
 #if (defined _UNICODE || defined __UNICODE__ || defined UNICODE) && !defined INI_ANSIONLY
 # if !defined UNICODE   /* for Windows */
 #   define UNICODE
@@ -230,7 +232,7 @@ static int getkeystring(INI_FILETYPE *fp, const TCHAR *Section, const TCHAR *Key
   int len, idx;
   enum quote_option quotes;
   TCHAR LocalBuffer[INI_BUFFERSIZE];
-
+  //print_k("getkeystring");
   assert(fp != NULL);
   /* Move through file 1 line at a time until a section is matched or EOF. If
    * parameter Section is NULL, only look at keys above the first section. If
@@ -312,11 +314,12 @@ int ini_gets(const TCHAR *Section, const TCHAR *Key, const TCHAR *DefValue,
 {
   INI_FILETYPE fp;
   int ok = 0;
-
+  //msgln("here22");
   if (Buffer == NULL || BufferSize <= 0 || Key == NULL)
     return 0;
   if (ini_openread(Filename, &fp)) {
     ok = getkeystring(&fp, Section, Key, -1, -1, Buffer, BufferSize, NULL);
+    //msgln("ini_close");
     (void)ini_close(&fp);
   } /* if */
   if (!ok)

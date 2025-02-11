@@ -2,9 +2,22 @@
 #include "macros.h"
 #include <Wifi.h>
 #include <TFT_eSPI.h>
+#include "variables.h"
+#include <XPT2046_Touchscreen.h>
+#include "setup.h"
+#include <TFT_eSPI.h>
+
+extern TFT_eSPI tft;
+
+extern SPIClass touchscreenSPI;
+extern XPT2046_Touchscreen touchscreen;
+
+extern int wifiConnectionStatus;
+
+extern String deviceData[];
 
 void psetup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   /***********HTML**************/
   String ssid_read_1 = deviceData[0];
@@ -18,31 +31,23 @@ void psetup() {
 
   const char* ssid_client = ssid_eeprom_read;
   const char* password_client = pass_eeprom_read;
-
-  WiFi.begin(ssid_client, password_client);
-  Serial.println("Connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-  }
-  wifiConnectionStatus=1;  //polaczono
-  Serial.print("IP:");
-  Serial.println(WiFi.localIP());
+  uint16_t i = 0;
+  uint16_t n = 0;
   /***********HTML**************/
 
 
   /***********LCD+TFT**************/
   // Start the SPI for the touchscreen and init the touchscreen
-  touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
-  touchscreen.begin(touchscreenSPI);
+  //touchscreenSPI.begin(XPT2046_CLK, XPT2046_MISO, XPT2046_MOSI, XPT2046_CS);
+  //touchscreen.begin(touchscreenSPI);
   // Set the Touchscreen rotation in landscape mode
   // Note: in some displays, the touchscreen might be upside down, so you might need to set the rotation to 3: touchscreen.setRotation(3);
-  touchscreen.setRotation(3);
+  //touchscreen.setRotation(3);
   // Start the tft display
-  tft.init();
+  //tft.init();
   // Set the TFT display rotation in landscape mode
-  tft.setRotation(3);
-  tft.invertDisplay(true);  //odwrocenie kolorow
+  //tft.setRotation(3);
+  //tft.invertDisplay(true);  //odwrocenie kolorow
 
   // Clear the screen before writing to it
   tft.fillScreen(TFT_WHITE);

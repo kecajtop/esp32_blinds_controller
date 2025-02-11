@@ -1,0 +1,8 @@
+{
+  "Configurations": [
+    {
+      "Version": "0.0.1",
+      "URL": "https://raw.githubusercontent.com/kecajtop/esp32_blinds_controller/main/images/firmware_pcb_rev01.bin"
+    }
+  ]
+}
