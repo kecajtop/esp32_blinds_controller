@@ -8,7 +8,7 @@
 #include "update_settings.h"
 #else
 #define JSON_URL   "https://raw.githubusercontent.com/kecajtop/esp32_blinds_controller/refs/heads/main/json/firmware_pcb_rev01.json" // this is where you'll post your JSON filter file
-#define _FW_VERSION_ESP32    "0.0.1" // The current version of this program
+#define _FW_VERSION_ESP32    "0.0.3" // The current version of this program
 #define _SD_FW_NAME_ESP32 "/firmwareESP32.bin"
 #define _SD_FW_NAME_ESP32_BAK "/firmwareESP32.bak"
 #define _PCB_VERSION "REV1"
@@ -18,21 +18,38 @@
 #define KEY_MAX_LENGTH    30 // change it if key is longer
 #define VALUE_MAX_LENGTH  30 // change it if value is longer
 
-struct config_t
+struct wifi_t
 {
-    int enable_wifi;
-    int enable_selftest;
-    int auto_load;
-    int start;
-    String file_to_load;
-    String ssid_wifi;
-    String password_wifi;
+  uint8_t enable;
+  String ssid;
+  String password;
 };
 
-struct pattern_struct_t //place for hard coded pattern
+struct ota_t
 {
-  uint32_t pattern[128][4];
+  uint8_t enable;
 };
+
+struct cover_t
+{
+  String name;
+  uint32_t map_number;
+  String name_up;
+  String name_down;
+  uint32_t close_time;
+  uint32_t open_time;
+  uint8_t invert;
+};
+
+struct config_t
+{
+  wifi_t wifi;
+  ota_t ota;
+  String name;
+  cover_t cover[16];
+};
+
+void init_ini(int *_result);
 
 String HELPER_ascii2String(char *ascii, int length);
 float HELPER_ascii2Float(char *ascii, int length);

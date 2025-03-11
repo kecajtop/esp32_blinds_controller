@@ -1,6 +1,8 @@
 #include "Arduino.h"
 #include "config.h"
 #include "macros.h"
+#include <minIni.h>
+#include <string>
 #include <SD.h>
 
 extern config_t settings;
@@ -10,51 +12,77 @@ extern const char* test_file_name;
 
 int sd_config_status = 0;
 
-void load_config(int *_result)
+static void assert_my(bool cond)
 {
+  if(!cond){
+    Serial.println("Error");
+    while(true){;}
+  }else{
+    Serial.println("OK");
+  }
+}
 
-  settings.start = 0;
+static void assert_my(String s1, String s2)
+{
+  Serial.print("<");
+  Serial.print(s1.c_str());
+  Serial.print("> <");
+  Serial.print(s2.c_str());
+  Serial.print(">  ");
+  
+  assert_my(s1 == s2);
+}
+
+static void assert_my(int d1, int d2)
+{
+  Serial.print("(");
+  Serial.print(d1);
+  Serial.print(") (");
+  Serial.print(d2);
+  Serial.print(")  ");
+  
+  assert_my(d1 == d2);
+}
+
+void init_ini(int *_result)
+{
+  msgln("Loading Settings from SD CARD ... ");
+  minIni ini("/settings.ini");
+
+  printf_k("[I] WIFI\r\n");
+  settings.wifi.ssid = ini.gets( "WIFI", "SSID" , STR(WIFI_SSID) );
+  printf_k("\t SSID = %s\r\n",settings.wifi.ssid.c_str());
+  settings.wifi.password = ini.gets( "WIFI", "PASS" , STR(WIFI_PASSWORD) );
+  printf_k("\t PASS = %s\r\n",settings.wifi.password.c_str());
+  settings.wifi.enable = (ini.gets( "WIFI", "ENABLE" , STR(WIFI_ENABLE) )).toInt();
+  printf_k("\t ENABLE_WIFI = %d\r\n",settings.wifi.enable);
+  settings.ota.enable= (ini.gets( "OTA", "ENABLE" , STR(OTA_ENABLE) )).toInt();
+  printf_k("\t OTA = %d\r\n",settings.ota.enable);
+
+  ssid = settings.wifi.ssid.c_str();
+  password = settings.wifi.password.c_str();
+  *_result = 1;
+  
+  msgln("Done");
+}
+
+/*void load_config(int *_result)
+{
 
 	char value_string[VALUE_MAX_LENGTH];
 	msgln("Loading config from SD CARD ... ");
-	if (SD_findKey(F("enable_selftest"), value_string))
-	{
-		settings.enable_selftest    = SD_findInt(F("enable_selftest"));
-		print_k(F("\t enable_selftest = "));
-    print_kln(settings.enable_selftest);
-	}
-	else
-	{
-		settings.enable_selftest = 1;
-		Serial.print(F("\t enable_selftest = not found, default = "));
-		print_kln(settings.enable_selftest);
-	}
 
   if (SD_findKey(F("auto_load"), value_string))
 	{
-		settings.auto_load    = SD_findInt(F("auto_load"));
-		Serial.print(F("\t auto_load = "));
-    print_kln(settings.auto_load);
+		settings.ota    = SD_findInt(F("ota"));
+		Serial.print(F("\t ota = "));
+    print_kln(settings.ota);
 	}
 	else
 	{
-		settings.auto_load = 0;
-		Serial.print(F("\t auto_load = not found, default = "));
-		print_kln(settings.auto_load);
-	}
-
-  if (SD_findKey(F("file_to_load"), value_string))
-	{
-		settings.file_to_load    = SD_findInt(F("file_to_load"));
-		Serial.print(F("\t file_to_load = "));
-    print_kln(settings.file_to_load);
-    test_file_name = settings.file_to_load.c_str();
-	}
-	else
-	{
-    settings.file_to_load = "test";
-		Serial.print(F("\t file_to_load = not found, default = "));
-		print_kln(settings.file_to_load);
+		settings.ota = 0;
+		Serial.print(F("\t ota = not found, default = "));
+		print_kln(settings.ota);
 	}
 
 	if (SD_findKey(F("enable_wifi"), value_string))
@@ -118,6 +146,7 @@ void load_config(int *_result)
 	msgln("Done");
 	*_result = sd_config_status;
 }
+*/
 
 bool SD_available(const __FlashStringHelper * key) {
   char value_string[VALUE_MAX_LENGTH];
@@ -146,7 +175,7 @@ String SD_findString(const __FlashStringHelper * key) {
 int SD_findKey(const __FlashStringHelper * key, char * value) {
   File configFile = SD.open(CONFIG_FILE_NAME);
 
-  if (!configFile) {
+  if (!configFile) {  
     err(F("SD Card: Issue encountered while attempting to open the file "));
     print_kln(CONFIG_FILE_NAME);
     sd_config_status = 0xFF;
