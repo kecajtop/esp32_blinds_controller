@@ -34,6 +34,8 @@
       3,
       4,
       5,
+      7,
+      8,
       9,
       10,
       11,
@@ -60,10 +62,11 @@
       34,
       35,
       36,
+      37,
       39,
       40
     ],
-    "visible_layers": "ffcb3ff_ffffffff",
+    "visible_layers": "ffc33ff_ffffffff",
     "zone_display_mode": 0
   },
   "git": {
