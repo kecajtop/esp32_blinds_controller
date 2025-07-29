@@ -11,22 +11,22 @@
 		(company "JKBI")
 	)
 	(lib_symbols
-		(symbol "380-015-113L001:Conn_01x05_Pin"
+		(symbol "Connector:Conn_01x02_Pin"
 			(pin_names
 				(offset 1.016) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "J"
-				(at 0 7.62 0)
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "Conn_01x05_Pin"
-				(at 0 -7.62 0)
+			(property "Value" "Conn_01x02_Pin"
+				(at 0 -5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -51,7 +51,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x05, script generated"
+			(property "Description" "Generic connector, single row, 01x02, script generated"
 				(at 0 0 0)
 				(effects
 					(font
@@ -86,7 +86,179 @@
 					(hide yes)
 				)
 			)
-			(symbol "Conn_01x05_Pin_1_1"
+			(symbol "Conn_01x02_Pin_1_1"
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Connector:Conn_01x06_Pin"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x06_Pin"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x06, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x06_Pin_1_1"
+				(polyline
+					(pts
+						(xy 1.27 -7.62) (xy 0.8636 -7.62)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 				(polyline
 					(pts
 						(xy 1.27 -5.08) (xy 0.8636 -5.08)
@@ -145,6 +317,17 @@
 					)
 					(fill
 						(type none)
+					)
+				)
+				(rectangle
+					(start 0.8636 -7.493)
+					(end 0 -7.747)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
 					)
 				)
 				(rectangle
@@ -285,6 +468,24 @@
 						)
 					)
 					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -7.62 180)
+					(length 3.81)
+					(name "Pin_6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1735,6 +1936,151 @@
 						)
 					)
 					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Jumper:Jumper_2_Bridged"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim yes)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at 0 1.905 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Bridged"
+				(at 0 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, closed/bridged"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_1"
+				(arc
+					(start 1.524 0.254)
+					(mid 0 0.762)
+					(end -1.524 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4718,6 +5064,12 @@
 		(uuid "0eac35dd-4ac8-4cd6-99de-6554f1e041bb")
 	)
 	(junction
+		(at 96.52 127)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "124ca49c-d032-4f3f-93df-3153508bd31a")
+	)
+	(junction
 		(at 153.67 38.1)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4758,6 +5110,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "34540ac7-2d39-4e05-9d5a-ae48e6abe32a")
+	)
+	(junction
+		(at 90.17 114.3)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3fcadee9-aca3-409b-a77b-70e0ae81f8cb")
 	)
 	(junction
 		(at 133.35 179.07)
@@ -4854,6 +5212,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a08c3a95-a633-42df-a5b5-955ebfca45ba")
+	)
+	(junction
+		(at 90.17 124.46)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c66033b6-9687-4d72-b4dc-659ab5de783e")
 	)
 	(junction
 		(at 151.13 146.05)
@@ -5013,6 +5377,26 @@
 	)
 	(wire
 		(pts
+			(xy 90.17 114.3) (xy 102.87 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0e1ba096-c85a-40ad-a1fe-6a2809087d6a")
+	)
+	(wire
+		(pts
+			(xy 90.17 124.46) (xy 102.87 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0f361bb6-1040-49c1-9f10-008a7e612d52")
+	)
+	(wire
+		(pts
 			(xy 57.15 157.48) (xy 57.15 171.45)
 		)
 		(stroke
@@ -5143,16 +5527,6 @@
 	)
 	(wire
 		(pts
-			(xy 104.14 30.48) (xy 87.63 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1fa2c694-ed7c-4d91-a9b4-4d04400f4be0")
-	)
-	(wire
-		(pts
 			(xy 142.24 77.47) (xy 153.67 77.47)
 		)
 		(stroke
@@ -5233,16 +5607,6 @@
 	)
 	(wire
 		(pts
-			(xy 91.44 38.1) (xy 91.44 40.64)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2c905f6a-0c5b-4d80-8130-f5ca6f4cb95a")
-	)
-	(wire
-		(pts
 			(xy 196.85 127) (xy 204.47 127)
 		)
 		(stroke
@@ -5250,6 +5614,16 @@
 			(type default)
 		)
 		(uuid "2e8951c7-5780-4f5b-b39c-4eb551ef37a0")
+	)
+	(wire
+		(pts
+			(xy 86.36 124.46) (xy 90.17 124.46)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31643391-e1ed-4621-83ef-eafe2c70e744")
 	)
 	(wire
 		(pts
@@ -5353,16 +5727,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 27.94) (xy 91.44 27.94)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3d01d018-8d5d-438b-993c-05af9c8714d8")
-	)
-	(wire
-		(pts
 			(xy 226.06 115.57) (xy 226.06 110.49)
 		)
 		(stroke
@@ -5463,16 +5827,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 33.02) (xy 104.14 33.02)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4283d6b6-6cdc-4165-a450-5d0d875f241d")
-	)
-	(wire
-		(pts
 			(xy 236.22 140.97) (xy 236.22 123.19)
 		)
 		(stroke
@@ -5540,6 +5894,16 @@
 			(type default)
 		)
 		(uuid "51b51d4e-8f7a-48e8-8be6-1ef16f593732")
+	)
+	(wire
+		(pts
+			(xy 96.52 127) (xy 96.52 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "52c717f6-98d5-4a86-98f7-0cba5b239a14")
 	)
 	(wire
 		(pts
@@ -5793,6 +6157,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 119.38) (xy 102.87 119.38)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6885f814-4d74-4702-8235-81e1a311ea71")
+	)
+	(wire
+		(pts
 			(xy 204.47 57.15) (xy 234.95 57.15)
 		)
 		(stroke
@@ -5870,6 +6244,16 @@
 			(type default)
 		)
 		(uuid "6df04aba-d040-42dc-bdbd-5f206922cf3a")
+	)
+	(wire
+		(pts
+			(xy 86.36 114.3) (xy 90.17 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70e37ca3-82bb-4952-97b3-f23fd829aeea")
 	)
 	(wire
 		(pts
@@ -5963,6 +6347,16 @@
 	)
 	(wire
 		(pts
+			(xy 62.23 106.68) (xy 67.31 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7642a6b3-9877-4c1a-841f-9087012a0c80")
+	)
+	(wire
+		(pts
 			(xy 193.04 90.17) (xy 208.28 90.17)
 		)
 		(stroke
@@ -6013,6 +6407,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 101.6) (xy 96.52 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ce6e217-88bf-4019-9153-8fd2fa1082d6")
+	)
+	(wire
+		(pts
 			(xy 48.26 40.64) (xy 48.26 58.42)
 		)
 		(stroke
@@ -6040,6 +6444,16 @@
 			(type default)
 		)
 		(uuid "80106d70-8ecb-40a6-bbdb-702483c82281")
+	)
+	(wire
+		(pts
+			(xy 62.23 109.22) (xy 67.31 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80539238-77a6-4ee8-8e09-d87416d6e78e")
 	)
 	(wire
 		(pts
@@ -6080,6 +6494,16 @@
 			(type default)
 		)
 		(uuid "8383ad62-12d0-46c7-b906-66bd871b6509")
+	)
+	(wire
+		(pts
+			(xy 86.36 127) (xy 96.52 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "840f7338-92ca-4862-aa46-794d15af0159")
 	)
 	(wire
 		(pts
@@ -6130,6 +6554,16 @@
 			(type default)
 		)
 		(uuid "87589d5e-6162-4dcd-b502-52e1d8199d44")
+	)
+	(wire
+		(pts
+			(xy 67.31 106.68) (xy 67.31 104.14)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89a3acb1-4ca5-45b5-888a-0b134cf7311b")
 	)
 	(wire
 		(pts
@@ -6243,16 +6677,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 38.1) (xy 91.44 38.1)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "929ae305-71ad-43d7-8af6-743f55f5bae5")
-	)
-	(wire
-		(pts
 			(xy 252.73 73.66) (xy 267.97 73.66)
 		)
 		(stroke
@@ -6320,6 +6744,16 @@
 			(type default)
 		)
 		(uuid "9c9d214d-2245-462b-91f2-a9584342858a")
+	)
+	(wire
+		(pts
+			(xy 90.17 124.46) (xy 90.17 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d94be5b-dd56-450e-9a13-8bc9f6392d42")
 	)
 	(wire
 		(pts
@@ -6563,16 +6997,6 @@
 	)
 	(wire
 		(pts
-			(xy 87.63 35.56) (xy 104.14 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b594a90c-3e9c-4322-b232-9c65bed7e2a5")
-	)
-	(wire
-		(pts
 			(xy 252.73 25.4) (xy 267.97 25.4)
 		)
 		(stroke
@@ -6753,6 +7177,16 @@
 	)
 	(wire
 		(pts
+			(xy 90.17 114.3) (xy 90.17 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d28cb5a7-b1e4-47f4-b273-0b2d7aaa649e")
+	)
+	(wire
+		(pts
 			(xy 262.89 107.95) (xy 262.89 125.73)
 		)
 		(stroke
@@ -6770,6 +7204,16 @@
 			(type default)
 		)
 		(uuid "d33a7d31-c4d3-4900-82fd-d58e4d804c0d")
+	)
+	(wire
+		(pts
+			(xy 102.87 116.84) (xy 86.36 116.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d33cc24b-1a61-48f5-b273-79ae1c3273a0")
 	)
 	(wire
 		(pts
@@ -6923,6 +7367,16 @@
 	)
 	(wire
 		(pts
+			(xy 67.31 109.22) (xy 67.31 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e66765f7-0c27-4f59-a463-235c43bac851")
+	)
+	(wire
+		(pts
 			(xy 252.73 55.88) (xy 267.97 55.88)
 		)
 		(stroke
@@ -6950,6 +7404,16 @@
 			(type default)
 		)
 		(uuid "e9761aae-c098-4dbe-8090-70f1ef3fe32e")
+	)
+	(wire
+		(pts
+			(xy 86.36 121.92) (xy 102.87 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea787df5-a750-4c41-80ee-432f64ffb1ca")
 	)
 	(wire
 		(pts
@@ -7003,6 +7467,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 127) (xy 102.87 127)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0d4ba60-f939-4247-879b-7f7578b1000c")
+	)
+	(wire
+		(pts
 			(xy 204.47 25.4) (xy 204.47 38.1)
 		)
 		(stroke
@@ -7040,16 +7514,6 @@
 			(type default)
 		)
 		(uuid "f5c8a5cc-afc9-4219-aa91-cf22a05ffed2")
-	)
-	(wire
-		(pts
-			(xy 91.44 27.94) (xy 91.44 24.13)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f64758ac-7bc2-4b60-a23a-00c111290096")
 	)
 	(wire
 		(pts
@@ -7121,28 +7585,6 @@
 			(justify left bottom)
 		)
 		(uuid "08b57453-e770-45c8-9d63-3c1f339db7ce")
-	)
-	(label "SDA"
-		(at 104.14 33.02 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0bf965d7-c2c9-485f-95b7-a81237ef0f23")
-	)
-	(label "SCL"
-		(at 104.14 35.56 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0c25b788-8312-4a98-b12f-60cf8bfad4bf")
 	)
 	(label "L2"
 		(at 237.49 48.26 180)
@@ -7353,17 +7795,6 @@
 		)
 		(uuid "4de3675f-f892-4f9d-874a-7814ce6ad2fd")
 	)
-	(label "INT"
-		(at 104.14 30.48 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "4fd16a9e-a771-4b2a-ab66-4677cc151244")
-	)
 	(label "UP2"
 		(at 95.25 161.29 180)
 		(fields_autoplaced yes)
@@ -7473,6 +7904,17 @@
 			(justify left bottom)
 		)
 		(uuid "66dc9750-7a4b-4650-abf0-196042563b46")
+	)
+	(label "SCL"
+		(at 102.87 121.92 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "6cc6d633-f2cc-4351-968b-994899f56149")
 	)
 	(label "A0"
 		(at 34.29 130.81 180)
@@ -7627,6 +8069,17 @@
 			(justify right bottom)
 		)
 		(uuid "a7046d1e-d6ef-4bf7-9642-197bff8d5c61")
+	)
+	(label "SDA"
+		(at 102.87 119.38 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a7ca3f78-d9e8-4194-b5bc-9e11d0b12533")
 	)
 	(label "IN3_H"
 		(at 252.73 118.11 0)
@@ -7903,6 +8356,17 @@
 		)
 		(uuid "f90f9f69-32d6-4a0f-884c-e786756989eb")
 	)
+	(label "INT"
+		(at 102.87 116.84 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "fa682e37-6a7e-40ed-96e1-7f882704214f")
+	)
 	(label "L2-UP"
 		(at 252.73 68.58 0)
 		(fields_autoplaced yes)
@@ -7986,6 +8450,71 @@
 			(project "esp32_blinds_controller"
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "#PWR035")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 90.17 132.08 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "04d337b9-31fe-4bb3-a083-b3f00ed761f3")
+		(property "Reference" "#PWR047"
+			(at 90.17 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 90.297 136.4742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 90.17 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 90.17 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 90.17 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9ff282de-1ec4-4c98-8f2d-54f1dd388d3e")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "#PWR047")
 					(unit 1)
 				)
 			)
@@ -8520,6 +9049,75 @@
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "MOD1")
 					(unit 3)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 57.15 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0fa5eb83-c9bc-43f9-8e55-452ea9bfe12c")
+		(property "Reference" "J2"
+			(at 57.785 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x05_Pin"
+			(at 57.785 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_EH_B2B-EH-A_1x02_P2.50mm_Vertical"
+			(at 57.15 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 57.15 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 57.15 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ac0dbd80-114e-4a8f-b091-78a4de93a634")
+		)
+		(pin "1"
+			(uuid "81e0b819-9711-41d0-825a-99902854e2f3")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "J2")
+					(unit 1)
 				)
 			)
 		)
@@ -9470,6 +10068,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VBUS")
+		(at 67.31 104.14 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "364ba162-00a2-4dab-946e-74d09fc3aa8d")
+		(property "Reference" "#PWR044"
+			(at 67.31 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 67.31 99.695 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 67.31 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 67.31 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 67.31 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ae0f3264-7d30-4b91-9e98-3801ebcfb6d2")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "#PWR044")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 21.59 123.19 0)
 		(unit 1)
@@ -10305,6 +10970,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VBUS")
+		(at 96.52 99.06 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "58acab4d-5c98-42cd-8b79-0f8c39ba78b6")
+		(property "Reference" "#PWR048"
+			(at 96.52 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 96.52 94.615 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 96.52 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 96.52 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 96.52 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "39e6e6c2-3148-4d4c-86d0-47a9f11115af")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 62.23 68.58 0)
 		(unit 1)
@@ -10430,6 +11162,87 @@
 			(project "esp32_blinds_controller"
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x06_Pin")
+		(at 81.28 119.38 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "60968b17-0db9-4251-abb3-2a60a83a9da8")
+		(property "Reference" "J1"
+			(at 81.915 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x05_Pin"
+			(at 81.915 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "Connector_JST:JST_EH_B6B-EH-A_1x06_P2.50mm_Vertical"
+			(at 81.28 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 81.28 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x06, script generated"
+			(at 81.28 119.38 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "ba04f070-65a7-4391-8216-fa0b1adef3d4")
+		)
+		(pin "2"
+			(uuid "fcc40a24-35f7-406f-bd90-b2d894a2d069")
+		)
+		(pin "4"
+			(uuid "1efc37a8-b78c-47ad-b093-7ea331b52483")
+		)
+		(pin "1"
+			(uuid "b0dc03e7-0756-452a-b55d-4001834248a2")
+		)
+		(pin "5"
+			(uuid "67e84dc2-a04b-4fcc-8fc0-9d18fcdd686c")
+		)
+		(pin "6"
+			(uuid "0005fb16-9448-47aa-a0b3-befecdabb4ff")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -10639,84 +11452,6 @@
 			(project "esp32_blinds_controller"
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "#PWR028")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "380-015-113L001:Conn_01x05_Pin")
-		(at 82.55 33.02 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "6931f4d2-1b4f-4979-81da-cf93265e36dd")
-		(property "Reference" "J1"
-			(at 83.185 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Conn_01x05_Pin"
-			(at 83.185 25.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical"
-			(at 82.55 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 82.55 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x05, script generated"
-			(at 82.55 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "34b6d605-eda7-45c8-866d-b274a13d6939")
-		)
-		(pin "2"
-			(uuid "5cd2effc-ad38-457e-bab8-80df23a7de65")
-		)
-		(pin "4"
-			(uuid "6a1d3670-22b4-4777-8b0b-7069e0af0fb5")
-		)
-		(pin "1"
-			(uuid "428e58ef-fb62-4c91-a629-82ca92179dfb")
-		)
-		(pin "5"
-			(uuid "c1b9b78e-57a2-4428-b328-1043a5342284")
-		)
-		(instances
-			(project "esp32_blinds_controller"
-				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
-					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -11600,6 +12335,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 67.31 110.49 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "83cd2726-6a3f-49c6-920f-3f37732853b1")
+		(property "Reference" "#PWR045"
+			(at 67.31 116.84 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 67.183 114.8842 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 67.31 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 67.31 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 67.31 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d4c332ad-a8c3-4716-992e-228c6041853b")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "#PWR045")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "VBUS_1")
 		(lib_id "power:VBUS")
 		(at 228.6 22.86 0)
@@ -11727,6 +12528,142 @@
 			(project "esp32_blinds_controller"
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 90.17 110.49 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "94183ba9-2eec-4f47-9484-2b4dadc89ec3")
+		(property "Reference" "#PWR046"
+			(at 90.17 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 90.17 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 90.17 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 90.17 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 90.17 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1dc7c3c3-4495-4f6c-9e79-90fce2de6cca")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "#PWR046")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Bridged")
+		(at 96.52 106.68 90)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "96d8a0cb-32b8-4001-9ae3-ef11e4d26896")
+		(property "Reference" "JP1"
+			(at 97.79 105.4099 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "Jumper_2_Bridged"
+			(at 97.79 107.9499 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged2Bar_Pad1.0x1.5mm"
+			(at 96.52 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 96.52 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, closed/bridged"
+			(at 96.52 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "841415c8-9fc5-427e-9855-f95e00da4947")
+		)
+		(pin "1"
+			(uuid "634c8020-f0f9-4687-8fa5-94787685153d")
+		)
+		(instances
+			(project "esp32_blinds_controller"
+				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
+					(reference "JP1")
 					(unit 1)
 				)
 			)
@@ -13227,71 +14164,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 91.44 40.64 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "dc3b83af-f41b-4a83-bb88-bea381589847")
-		(property "Reference" "#PWR042"
-			(at 91.44 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 91.567 45.0342 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 91.44 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 91.44 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "82f4015e-2d04-4e18-98c2-a98fbc801c0a")
-		)
-		(instances
-			(project "esp32_blinds_controller"
-				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
-					(reference "#PWR042")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 21.59 149.86 0)
 		(unit 1)
@@ -14147,72 +15019,6 @@
 			(project "esp32_blinds_controller"
 				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
 					(reference "C2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+3V3")
-		(at 91.44 24.13 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f87c0d71-0bfa-4c32-b566-c3439cbdf3f8")
-		(property "Reference" "#PWR043"
-			(at 91.44 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 91.44 19.05 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 91.44 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 91.44 24.13 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "406af3ff-c436-492f-a612-4f618a1a9812")
-		)
-		(instances
-			(project "esp32_blinds_controller"
-				(path "/7e7bdb29-e56b-4957-9d06-2326255f96b2"
-					(reference "#PWR043")
 					(unit 1)
 				)
 			)
