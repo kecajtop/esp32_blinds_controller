@@ -1,0 +1,27 @@
+Designator,Val,Package,Mid X,Mid Y,Rotation,Layer
+C2,100nF,C_Disc_D5.0mm_W2.5mm_P5.00mm,105.36,-95.015,180.0,top
+C3,100nF,C_Disc_D5.0mm_W2.5mm_P5.00mm,149.9,-80.1,0.0,top
+C4,100uF,CP_Radial_D8.0mm_P3.50mm,151.097349,-74.0,0.0,top
+C5,100uF,CP_Radial_D8.0mm_P3.50mm,112.5,-90.57,0.0,top
+D1,SM4007,D_MELF,127.635,-99.515,0.0,bottom
+D2,SM4007,D_MELF,174.0,-99.515,0.0,bottom
+D3,SM4007,D_MELF,193.675,-97.84,0.0,bottom
+D4,SM4007,D_MELF,147.955,-102.055,0.0,bottom
+J1,Conn_01x05_Pin,JST_EH_B6B-EH-A_1x06_P2.50mm_Vertical,120.95,-80.0,0.0,bottom
+J2,Conn_01x05_Pin,JST_EH_B6B-EH-A_1x06_P2.50mm_Vertical,120.95,-76.8,180.0,top
+K1,LEG-24,Relay_SPDT_Omron-G5LE-1,118.35,-107.5,0.0,top
+K2,LEG-24,Relay_SPDT_Omron-G5LE-1,137.25,-107.5,0.0,top
+K3,LEG-24,Relay_SPDT_Omron-G5LE-1,164.75,-107.5,0.0,top
+K4,LEG-24,Relay_SPDT_Omron-G5LE-1,183.8,-107.5,0.0,top
+MOD1,"4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006",ZD1006_narrow,151.175,-97.2975,0.0,top
+R10,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,178.6,-76.675,90.0,top
+R11,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,192.0,-76.67,90.0,top
+R4,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,168.6,-79.125,-90.0,top
+R5,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,165.5,-79.125,-90.0,top
+R6,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,162.4,-79.125,-90.0,top
+R7,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,171.6,-79.125,-90.0,top
+R8,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,183.6,-76.67,90.0,top
+R9,4.7K,R_Axial_DIN0207_L6.3mm_D2.5mm_P2.54mm_Vertical,188.7,-76.67,90.0,top
+U1,MCP23008-xP,DIP-18_W7.62mm_LongPads,150.68,-87.095,-90.0,top
+U2,ULN2003A,DIP-16_W7.62mm_LongPads,127.635,-88.185,-90.0,top
+U3,LTV-847,DIP-16_W7.62mm,183.25,-87.11,-90.0,top
