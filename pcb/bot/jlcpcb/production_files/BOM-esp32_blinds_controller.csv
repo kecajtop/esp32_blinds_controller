@@ -1,0 +1,20 @@
+Comment,Designator,Footprint,LCSC,Quantity
+2.2k,"R10,R11,R12,R13,R14,R15,R8,R9",R_0805_2012Metric,C17520,8
+4.7K,"R1,R2,R3,R4,R5,R6,R7",R_0805_2012Metric,C17673,7
+1N4148,"D10,D5,D6,D7,D8,D9",D_SOD-123,C2099,6
+100nF,"C1,C2,C3",C_0805_2012Metric,C28233,3
+100uF,"C4,C5",CP_Elec_6.3x7.7,C5243822,2
+EL817,"U4,U5,U6,U7",SMDIP-4_W9.53mm,C5353,4
+SM4007,"D1,D2,D3,D4",D_MELF,C64898,4
+ULN2003A,U2,SOIC-16_3.9x9.9mm_P1.27mm,C7512,1
+MCP23008-xP,U1,SOIC-18W_7.5x11.6mm_P1.27mm,C92253,1
+Conn_01x05_Pin,J1,PinHeader_1x05_P2.54mm_Vertical,,1
+LEG-24,K2,Relay_SPDT_Omron-G5LE-1,,1
+LEG-24,K4,Relay_SPDT_Omron-G5LE-1,,1
+LEG-24,K1,Relay_SPDT_Omron-G5LE-1,,1
+"4x TerminalBlock_Phoenix_MKDS-1,5-8_1x08_P5.00mm + ZD1006",MOD1,ZD1006,,1
+R-78E3.3-1.0,U3,Converter_DCDC_RECOM_R-78E-0.5_THT,,1
+LEG-24,K3,Relay_SPDT_Omron-G5LE-1,,1
+SolderJumper_3_Open,A1,SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm_NumberLabels,,1
+SolderJumper_3_Open,A0,SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm_NumberLabels,,1
+SolderJumper_3_Open,A2,SolderJumper-3_P1.3mm_Open_RoundedPad1.0x1.5mm_NumberLabels,,1
