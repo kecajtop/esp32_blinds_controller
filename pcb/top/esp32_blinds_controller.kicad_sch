@@ -6906,6 +6906,16 @@
 		)
 		(uuid "1c13ae83-e9b6-4f12-8510-8e54615562e5")
 	)
+	(label "UP2"
+		(at 92.71 71.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1ed9fd77-73c5-4d4e-a7a0-28185b2d3c8b")
+	)
 	(label "nDOWN2"
 		(at 193.04 38.1 0)
 		(effects
@@ -7076,6 +7086,16 @@
 		)
 		(uuid "56969076-ef24-467d-b65f-cf4867b10aba")
 	)
+	(label "DN1"
+		(at 92.71 78.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5bb55fa5-67fc-459b-b6d8-d16cbe3d10e5")
+	)
 	(label "L2"
 		(at 252.73 63.5 0)
 		(effects
@@ -7205,6 +7225,16 @@
 			(justify left bottom)
 		)
 		(uuid "a25d735b-d835-44d5-b5a9-282e3a63629c")
+	)
+	(label "DN2"
+		(at 92.71 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a34e3029-c078-4f07-a3ef-e26fd284e001")
 	)
 	(label "SCL"
 		(at 62.23 50.8 180)
@@ -7445,6 +7475,16 @@
 			(justify right bottom)
 		)
 		(uuid "f3840997-a2c7-4ea7-9fc9-21eb4648929a")
+	)
+	(label "UP1"
+		(at 92.71 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f42241ab-f66e-4cdf-aa93-e404c0346b5f")
 	)
 	(label "nUP1"
 		(at 142.24 77.47 0)
