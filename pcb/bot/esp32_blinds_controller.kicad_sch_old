@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "esp32_blinds_controller")
-		(date "2024-08-18")
+		(date "2025-10-06")
 		(rev "${Revision}")
 		(company "JKBI")
 	)
