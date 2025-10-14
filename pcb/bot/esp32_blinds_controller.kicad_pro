@@ -516,7 +516,7 @@
       "plot": "./gerber/${Revision}/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "esp32_blinds_controller.step",
+      "step": "esp32_blinds_controller_bot.step",
       "svg": "",
       "vrml": ""
     },
