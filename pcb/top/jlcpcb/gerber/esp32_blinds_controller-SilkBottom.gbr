@@ -1,12 +1,12 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,9.0.3*%
-%TF.CreationDate,2025-10-14T20:44:30+02:00*%
+%TF.CreationDate,2025-10-15T19:44:16+02:00*%
 %TF.ProjectId,esp32_blinds_controller,65737033-325f-4626-9c69-6e64735f636f,V0.3*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Legend,Bot*%
 %TF.FilePolarity,Positive*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 9.0.3) date 2025-10-14 20:44:30*
+G04 Created by KiCad (PCBNEW 9.0.3) date 2025-10-15 19:44:16*
 %MOMM*%
 %LPD*%
 G01*

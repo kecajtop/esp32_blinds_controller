@@ -227,7 +227,7 @@
 		(path "/7d275d99-4424-4ec3-b504-1b3e843e7522")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.91 0.11)
 			(end -2.91 2.61)
@@ -873,7 +873,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5243822"
+		(property "LCSC" "C311622"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1534,7 +1534,7 @@
 		(path "/297f2098-346a-439d-b6bf-f28f3963dd6d")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -3050,7 +3050,7 @@
 		(path "/0b1c810b-9c44-4b78-8d31-b34ba41a80b7")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -5055,7 +5055,7 @@
 		(path "/a8d3e3e9-d3bd-4301-a66b-7c41cef0b189")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -7527,7 +7527,7 @@
 		(path "/23fcf438-7bb1-4255-a99f-3e919f502636")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 4 -32)
 			(end 1 -32)
@@ -12367,7 +12367,7 @@
 		(path "/6d5a68cc-ba96-4903-853c-c1d6d22daac0")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -3.611 1.06)
 			(end -3.611 2.3)
@@ -12633,7 +12633,7 @@
 		(path "/0d79799a-04da-4450-af4e-a5757bed3439")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole exclude_from_pos_files)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -13746,7 +13746,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5243822"
+		(property "LCSC" "C311622"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -15046,7 +15046,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.05 0.3)
 			(end -2.05 -0.3)
@@ -15380,7 +15380,7 @@
 		(path "/82bab305-bf83-4954-82bf-ca99e27371ad")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -15700,7 +15700,7 @@
 		(path "/c0a4d0f4-8b6d-4525-a716-a4819aa3a053")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -16020,7 +16020,7 @@
 		(path "/20213dd3-30b2-4dd3-9fea-6061ff883850")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -16299,7 +16299,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.05 0.3)
 			(end -2.05 -0.3)
@@ -16635,7 +16635,7 @@
 		(path "/b61cd590-1e49-42e4-bce2-fd41c9d0c13e")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -16914,7 +16914,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -2.05 0.3)
 			(end -2.05 -0.3)

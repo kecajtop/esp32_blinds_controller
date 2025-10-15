@@ -1793,7 +1793,7 @@
 		(path "/297f2098-346a-439d-b6bf-f28f3963dd6d")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -3106,7 +3106,7 @@
 		(path "/0b1c810b-9c44-4b78-8d31-b34ba41a80b7")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -4791,7 +4791,7 @@
 		(path "/a8d3e3e9-d3bd-4301-a66b-7c41cef0b189")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -5158,7 +5158,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5243822"
+		(property "LCSC" "C311622"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -5819,7 +5819,7 @@
 		(path "/f961f368-daa2-4dc6-a8ef-b8878965e268")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 3.931 -24.835)
 			(end 0.931 -24.835)
@@ -10574,7 +10574,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C5243822"
+		(property "LCSC" "C311622"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -11983,7 +11983,7 @@
 		(path "/0d79799a-04da-4450-af4e-a5757bed3439")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -8.35 -2.65)
 			(end -8.35 20.05)
@@ -12568,7 +12568,7 @@
 		(path "/c46e0dc9-4aa3-4609-9e9e-b61d371d3391")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 15.11 2.31)
 			(end 15.11 -1.71)
@@ -12973,7 +12973,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -1.4 -1)
 			(end 1.4 -1)
@@ -13295,7 +13295,7 @@
 		(path "/82bab305-bf83-4954-82bf-ca99e27371ad")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -13574,7 +13574,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -1.4 -1)
 			(end 1.4 -1)
@@ -13896,7 +13896,7 @@
 		(path "/c0a4d0f4-8b6d-4525-a716-a4819aa3a053")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -14202,7 +14202,7 @@
 		(path "/20213dd3-30b2-4dd3-9fea-6061ff883850")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
@@ -14480,7 +14480,7 @@
 		(path "/6931f4d2-1b4f-4979-81da-cf93265e36dd")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr through_hole)
+		(attr through_hole exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 15.11 1.71)
 			(end 15.11 -2.31)
@@ -14886,7 +14886,7 @@
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
 		(zone_connect 1)
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -1.4 -1)
 			(end 1.4 -1)
@@ -15208,7 +15208,7 @@
 		(path "/b61cd590-1e49-42e4-bce2-fd41c9d0c13e")
 		(sheetname "/")
 		(sheetfile "esp32_blinds_controller.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start 2.4 -1.61)
 			(end -3.41 -1.61)
