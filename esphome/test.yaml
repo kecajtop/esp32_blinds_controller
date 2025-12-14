@@ -1,3 +1,16 @@
+captive_portal:
+
+web_server:
+  port: 80
+  version: 3
+  sorting_groups:
+    - id: sorting_group_time_settings
+      name: "Time Settings"
+      sorting_weight: 10
+    - id: sorting_group_number_settings
+      name: "Number settings"
+      sorting_weight: 20
+
 i2c:
   sda: GPIO21
   scl: GPIO22
@@ -5,8 +18,12 @@ i2c:
   id: bus_a
 
 mcp23008:
-  - id: 'mcp23008_hub'
+  - id: 'mcp23008_hub1'
     address: 0x26
+  - id: 'mcp23008_hub2'
+    address: 0x25
+  - id: 'mcp23008_hub3'
+    address: 0x24
 
 switch:
   - platform: restart
@@ -15,41 +32,124 @@ switch:
     name: "$friendly_name shutdown"
   - platform: safe_mode
     name: "$friendly_name restart (Safe Mode)"
+#-----------------------------
   - platform: gpio
     id: relay_1
-    name: "MCP23008 Pin #0"
+    name: "MCP23008 1 Pin #0 relay_1 UP"
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 0
       number: 0
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 Pin #1"
+    name: "MCP23008 1 Pin #1 relay_2 DOWN"
     id: relay_2
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 1
       number: 1
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 Pin #2"
+    name: "MCP23008 1 Pin #2 relay_3 UP"
     id: relay_3
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 2
       number: 2
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 Pin #3"
+    name: "MCP23008 1 Pin #3 relay_4 DOWN"
     id: relay_4
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
+      # Use pin number 3
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#----------------------------
+  - platform: gpio
+    id: relay_5
+    name: "MCP23008 2 Pin #0 relay_5 UP"
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 0
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 2 Pin #1 relay_6 DOWN"
+    id: relay_6
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 1
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 2 Pin #2 relay_7 UP"
+    id: relay_7
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 2
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 2 Pin #3 relay_8 DOWN"
+    id: relay_8
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 3
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_9
+    name: "MCP23008 3 Pin #7 relay_9 UP"
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 7
+      number: 7
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 3 Pin #1 relay_10 DOWN"
+    id: relay_10
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 1
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 3 Pin #2 relay_11 UP"
+    id: relay_11
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 2
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "MCP23008 3 Pin #3 relay_12 DOWN"
+    id: relay_12
+    pin:
+      mcp23xxx: mcp23008_hub3
       # Use pin number 3
       number: 3
       mode:
@@ -59,9 +159,9 @@ switch:
 binary_sensor:
 
   - platform: gpio
-    name: "MCP23008 Pin #4"
+    name: "MCP23008 Pin 1 #4 IN1"
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 4
       number: 4
       # One of INPUT or INPUT_PULLUP
@@ -69,12 +169,21 @@ binary_sensor:
         input: true
       inverted: true
     on_press:
-      then:
-        - switch.toggle: relay_1
+      - lambda: |-
+          if (id(cover1).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover1).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover1).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
   - platform: gpio
-    name: "MCP23008 Pin #5"
+    name: "MCP23008 1 Pin #5 IN2"
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 5
       number: 5
       # One of INPUT or INPUT_PULLUP
@@ -82,12 +191,21 @@ binary_sensor:
         input: true
       inverted: true
     on_press:
-      then:
-        - switch.toggle: relay_2
+      - lambda: |-
+          if (id(cover1).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover1).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover1).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
   - platform: gpio
-    name: "MCP23008 Pin #6"
+    name: "MCP23008 1 Pin #6 IN3"
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 6
       number: 6
       # One of INPUT or INPUT_PULLUP
@@ -95,12 +213,21 @@ binary_sensor:
         input: true
       inverted: true
     on_press:
-      then:
-        - switch.toggle: relay_3
+      - lambda: |-
+          if (id(cover2).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover2).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover2).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
   - platform: gpio
-    name: "MCP23008 Pin #7"
+    name: "MCP23008 1 Pin #7 IN4"
     pin:
-      mcp23xxx: mcp23008_hub
+      mcp23xxx: mcp23008_hub1
       # Use pin number 7
       number: 7
       # One of INPUT or INPUT_PULLUP
@@ -108,5 +235,284 @@ binary_sensor:
         input: true
       inverted: true
     on_press:
-      then:
-        - switch.toggle: relay_4
+      - lambda: |-
+          if (id(cover2).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover2).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover2).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
+#------------------------
+  - platform: gpio
+    name: "MCP23008 2 Pin #4 IN1"
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 4
+      number: 4
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover3).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover3).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover3).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 2 Pin #5 IN2"
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 5
+      number: 5
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover3).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover3).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover3).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 2 Pin #6 IN3"
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 6
+      number: 6
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover4).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover4).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover4).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 2 Pin #7 IN4"
+    pin:
+      mcp23xxx: mcp23008_hub2
+      # Use pin number 7
+      number: 7
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover4).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover4).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover4).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
+#------------------------
+  - platform: gpio
+    name: "MCP23008 3 Pin #4 IN1"
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 4
+      number: 4
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover5).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover5).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover5).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 3 Pin #5 IN2"
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 5
+      number: 5
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover5).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover5).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover5).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 3 Pin #6 IN3"
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 6
+      number: 6
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover6).current_operation == COVER_OPERATION_OPENING){
+            auto call = id(cover6).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover6).make_call();
+            call.set_command_open();
+            call.perform(); 
+            }
+  - platform: gpio
+    name: "MCP23008 3 Pin #0 IN4"
+    pin:
+      mcp23xxx: mcp23008_hub3
+      # Use pin number 0
+      number: 0
+      # One of INPUT or INPUT_PULLUP
+      mode:
+        input: true
+      inverted: true
+    on_press:
+      - lambda: |-
+          if (id(cover6).current_operation == COVER_OPERATION_CLOSING){
+            auto call = id(cover6).make_call();
+            call.set_command_stop();
+            call.perform(); 
+          }
+          else {
+            auto call = id(cover6).make_call();
+            call.set_command_close();
+            call.perform(); 
+            }
+
+cover:
+  - platform: time_based
+    name: "Roleta 1"
+    id: cover1
+
+    open_action:
+      - switch.turn_on: relay_1
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_2
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_1
+      - switch.turn_off: relay_2
+  - platform: time_based
+    name: "Roleta 2"
+    id: cover2
+
+    open_action:
+      - switch.turn_on: relay_3
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_4
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_3
+      - switch.turn_off: relay_4
+  - platform: time_based
+    name: "Roleta 3"
+    id: cover3
+
+    open_action:
+      - switch.turn_on: relay_5
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_6
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_5
+      - switch.turn_off: relay_6
+  - platform: time_based
+    name: "Roleta 4"
+    id: cover4
+
+    open_action:
+      - switch.turn_on: relay_7
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_8
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_7
+      - switch.turn_off: relay_8
+  - platform: time_based
+    name: "Roleta 5"
+    id: cover5
+
+    open_action:
+      - switch.turn_on: relay_9
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_10
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_9
+      - switch.turn_off: relay_10
+  - platform: time_based
+    name: "Roleta 6"
+    id: cover6
+
+    open_action:
+      - switch.turn_on: relay_11
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_12
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_11
+      - switch.turn_off: relay_12
