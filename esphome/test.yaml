@@ -1,3 +1,34 @@
+esphome:
+  name: zaluzje
+  friendly_name: zaluzje
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: INFO
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "AZDpnAC7F9v0GgUJSoeB50t/uyy0cHWzApCHNL0cHLc="
+
+ota:
+  - platform: esphome
+    password: "314fa81e880e11f4f7c3e57e44f16bdb"
+
+wifi:
+  ssid: !secret wifi_ssid #"T-Mobile-ZTE MF286-83954E" #!secret wifi_ssid
+  password: !secret wifi_password #"Maniek104" #!secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "zaluzje1"
+    password: "zaluzje1"
+
 captive_portal:
 
 web_server:
@@ -11,20 +42,1567 @@ web_server:
       name: "Number settings"
       sorting_weight: 20
 
+font:
+  - file: "fonts/Comic Sans MS.ttf"
+    id: my_font
+    size: 20
+    bpp: 2
+  - file: "gfonts://Roboto"
+    id: roboto20
+    size: 20
+    extras:
+      - file: 'fonts/MaterialIcons-Regular.ttf'
+        glyphs: [
+          "\U0000E1BA",
+          "\U0000E1DA",
+          "\U0000E314",
+          "\U0000E315",
+          "\U0000E88A",
+          "\U0000E316", # arrow_upward
+          "\U0000E313", # arrow_downward
+          "\U0000E047", # stop
+          ]
+
+spi:
+  - id: tft
+    clk_pin: 14
+    mosi_pin: 13
+    miso_pin:
+      number: 12
+      ignore_strapping_warning: true
+  - id: touch
+    clk_pin: 25
+    mosi_pin: 32
+    miso_pin: 39
+
+output:
+  - id: backlight_pwm
+    platform: ledc
+    pin: 21
+  - id: output_red
+    platform: ledc
+    pin: 4
+    inverted: true
+  - id: output_green
+    platform: ledc
+    pin: 16
+    inverted: true
+  - id: output_blue
+    platform: ledc
+    pin: 17
+    inverted: true
+
+light:
+  - id: display_backlight
+    platform: monochromatic
+    output: backlight_pwm
+    name: Display Backlight
+    restore_mode: ALWAYS_ON
+  - id: led
+    platform: rgb
+    red: output_red
+    green: output_green
+    blue: output_blue
+    restore_mode: ALWAYS_OFF
+
+display:
+  - platform: ili9xxx
+    model: ILI9341
+    spi_id: tft
+    cs_pin:
+      number: 15
+      ignore_strapping_warning: true
+    dc_pin:
+      number:  2
+      ignore_strapping_warning: true
+    invert_colors: false
+    color_order: rgb
+    update_interval: never
+    auto_clear_enabled: false
+    rotation: 0
+    dimensions:
+      height: 240
+      width: 320
+
+touchscreen:
+  platform: xpt2046
+  spi_id: touch
+  cs_pin: 33
+  interrupt_pin: 36
+  threshold: 400
+  calibration:
+    x_min: 364
+    x_max: 3793
+    y_min: 276
+    y_max: 3748
+  transform:
+    mirror_x: true
+    mirror_y: true
+    swap_xy: true
+  #on_touch:
+  #  - lambda: |-
+  #        ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+  #            touch.x,
+  #            touch.y,
+  #            touch.x_raw,
+  #            touch.y_raw
+  #            );
+  on_release:
+      then:
+        - if:
+            condition: lvgl.is_paused
+            then:
+              - light.turn_on: 
+                  id: display_backlight
+                  transition_length: 1s
+              - lvgl.resume:
+              - lvgl.widget.redraw:
+
+lvgl:
+  id: lvgl_disp
+  buffer_size: 10%
+  theme:
+    label:
+      text_font: roboto20
+    button:
+      bg_color: 0x2F8CD8
+      bg_grad_color: 0x005782
+      bg_grad_dir: VER
+      bg_opa: COVER
+      border_color: 0x0077b3
+      border_width: 1
+      text_color: 0xFFFFFF
+      pressed:
+        bg_color: 0x006699
+        bg_grad_color: 0x00334d
+      checked:
+        bg_color: 0x1d5f96
+        bg_grad_color: 0x03324A
+        text_color: 0xfff300
+    buttonmatrix:
+      bg_opa: TRANSP
+      border_color: 0x0077b3
+      border_width: 0
+      text_color: 0xFFFFFF
+      pad_all: 0
+      items:
+        bg_color: 0x2F8CD8
+        bg_grad_color: 0x005782
+        bg_grad_dir: VER
+        bg_opa: COVER
+        border_color: 0x0077b3
+        border_width: 1
+        text_color: 0xFFFFFF
+        text_font: roboto20
+        pressed:
+          bg_color: 0x006699
+          bg_grad_color: 0x00334d
+        checked:
+          bg_color: 0x1d5f96
+          bg_grad_color: 0x03324A
+          text_color: 0x005580
+  
+  pages:
+    - id: page_roleta1
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 1"
+                  align: TOP_MID
+                  y: 0
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover1_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover1_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover1).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover1_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover1).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover1_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover1).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav1_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav1_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta_all
+                      - id: nav1_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta2
+    - id: page_roleta2
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 2"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover2_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover2_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover2).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover2_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover2).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover2_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover2).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav2_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav2_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta1
+                      - id: nav2_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta3
+    - id: page_roleta3
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 3"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover3_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover3_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover3).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover3_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover3).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover3_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover3).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav3_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav3_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta2
+                      - id: nav3_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta4
+    - id: page_roleta4
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 4"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover4_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover4_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover4).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover4_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover4).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover4_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover4).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav4_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav4_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta3
+                      - id: nav4_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta5
+    - id: page_roleta5
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 5"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover5_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover5_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover5).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover5_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover5).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover5_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover5).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav5_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav5_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta4
+                      - id: nav5_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta6
+    - id: page_roleta6
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 6"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover6_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover6_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover6).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover6_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover6).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover6_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover6).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav6_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav6_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta5
+                      - id: nav6_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta8
+    - id: page_roleta8
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 7"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover7_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover7_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover7).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover7_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover7).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover7_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover7).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav8_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav8_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta8
+                      - id: nav8_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta9
+    - id: page_roleta9
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 8"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover8_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover8_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover8).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover8_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover8).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover8_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover8).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav9_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav9_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta8
+                      - id: nav9_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta10
+    - id: page_roleta10
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 9"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover9_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover9_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover9).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover9_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover9).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover9_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover9).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav10_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav10_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta9
+                      - id: nav10_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta11
+    - id: page_roleta11
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 10"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover10_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover10_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover10).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover10_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover10).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover10_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover10).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav11_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav11_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta10
+                      - id: nav11_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta12
+    - id: page_roleta12
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 11"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover11_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover11_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover11).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover11_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover11).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover11_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover11).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav12_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav12_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta11
+                      - id: nav12_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta13
+    - id: page_roleta13
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 12"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover12_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover12_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover12).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover12_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover12).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover12_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover12).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav13_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav13_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta12
+                      - id: nav13_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta14
+    - id: page_roleta14
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 13"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover13_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover13_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover13).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover13_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover13).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover13_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover13).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav14_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav14_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta13
+                      - id: nav14_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta15
+    - id: page_roleta15
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 14"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover14_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover14_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover14).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover14_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover14).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover14_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover14).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav15_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav15_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta14
+                      - id: nav15_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta16
+    - id: page_roleta16
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 15"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover15_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover15_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover15).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover15_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover15).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover15_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover15).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav16_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav16_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta15
+                      - id: nav16_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta17
+    - id: page_roleta17
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Roleta 16"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover16_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: cover16_up
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover16).make_call();
+                                      call.set_command_open();
+                                      call.perform();
+                            - id: cover16_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover16).make_call();
+                                      call.set_command_stop();
+                                      call.perform();
+                            - id: cover16_down
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call = id(cover16).make_call();
+                                      call.set_command_close();
+                                      call.perform();
+              - buttonmatrix:
+                  id: nav17_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav17_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta16
+                      - id: nav17_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta_all
+    - id: page_roleta_all
+      widgets:
+        - obj:
+            width: 320
+            height: 240
+            bg_color: 0x000000
+            widgets:
+              - label:
+                  text: "Wszystkie"
+                  align: TOP_MID
+                  y: 5
+                  text_color: 0xFFFFFF
+                  text_font: roboto20
+              - obj:
+                  x: 5
+                  y: 30
+                  width: 280
+                  height: 100
+                  bg_color: 0x1a1a1a
+                  border_width: 2
+                  border_color: 0x0077b3
+                  widgets:
+                    - buttonmatrix:
+                        id: cover_all_btns
+                        align: CENTER
+                        y: 0
+                        width: 240
+                        height: 60
+                        rows:
+                        - buttons:
+                            - id: all_open
+                              text: "\U0000E316"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call1 = id(cover1).make_call();
+                                      call1.set_command_open();
+                                      call1.perform();
+                                      auto call2 = id(cover2).make_call();
+                                      call2.set_command_open();
+                                      call2.perform();
+                                      auto call3 = id(cover3).make_call();
+                                      call3.set_command_open();
+                                      call3.perform();
+                                      auto call4 = id(cover4).make_call();
+                                      call4.set_command_open();
+                                      call4.perform();
+                                      auto call5 = id(cover5).make_call();
+                                      call5.set_command_open();
+                                      call5.perform();
+                                      auto call6 = id(cover6).make_call();
+                                      call6.set_command_open();
+                                      call6.perform();
+                                      auto call7 = id(cover7).make_call();
+                                      call7.set_command_open();
+                                      call7.perform();
+                                      auto call8 = id(cover8).make_call();
+                                      call8.set_command_open();
+                                      call8.perform();
+                                      auto call9 = id(cover9).make_call();
+                                      call9.set_command_open();
+                                      call9.perform();
+                                      auto call10 = id(cover10).make_call();
+                                      call10.set_command_open();
+                                      call10.perform();
+                                      auto call11 = id(cover11).make_call();
+                                      call11.set_command_open();
+                                      call11.perform();
+                                      auto call12 = id(cover12).make_call();
+                                      call12.set_command_open();
+                                      call12.perform();
+                                      auto call13 = id(cover13).make_call();
+                                      call13.set_command_open();
+                                      call13.perform();
+                                      auto call14 = id(cover14).make_call();
+                                      call14.set_command_open();
+                                      call14.perform();
+                                      auto call15 = id(cover15).make_call();
+                                      call15.set_command_open();
+                                      call15.perform();
+                                      auto call16 = id(cover16).make_call();
+                                      call16.set_command_open();
+                                      call16.perform();
+                            - id: all_stop
+                              text: "\U0000E047"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call1 = id(cover1).make_call();
+                                      call1.set_command_stop();
+                                      call1.perform();
+                                      auto call2 = id(cover2).make_call();
+                                      call2.set_command_stop();
+                                      call2.perform();
+                                      auto call3 = id(cover3).make_call();
+                                      call3.set_command_stop();
+                                      call3.perform();
+                                      auto call4 = id(cover4).make_call();
+                                      call4.set_command_stop();
+                                      call4.perform();
+                                      auto call5 = id(cover5).make_call();
+                                      call5.set_command_stop();
+                                      call5.perform();
+                                      auto call6 = id(cover6).make_call();
+                                      call6.set_command_stop();
+                                      call6.perform();
+                                      auto call7 = id(cover7).make_call();
+                                      call7.set_command_stop();
+                                      call7.perform();
+                                      auto call8 = id(cover8).make_call();
+                                      call8.set_command_stop();
+                                      call8.perform();
+                                      auto call9 = id(cover9).make_call();
+                                      call9.set_command_stop();
+                                      call9.perform();
+                                      auto call10 = id(cover10).make_call();
+                                      call10.set_command_stop();
+                                      call10.perform();
+                                      auto call11 = id(cover11).make_call();
+                                      call11.set_command_stop();
+                                      call11.perform();
+                                      auto call12 = id(cover12).make_call();
+                                      call12.set_command_stop();
+                                      call12.perform();
+                                      auto call13 = id(cover13).make_call();
+                                      call13.set_command_stop();
+                                      call13.perform();
+                                      auto call14 = id(cover14).make_call();
+                                      call14.set_command_stop();
+                                      call14.perform();
+                                      auto call15 = id(cover15).make_call();
+                                      call15.set_command_stop();
+                                      call15.perform();
+                                      auto call16 = id(cover16).make_call();
+                                      call16.set_command_stop();
+                                      call16.perform();
+                            - id: all_close
+                              text: "\U0000E313"
+                              on_press:
+                                then:
+                                  - lambda: |-
+                                      auto call1 = id(cover1).make_call();
+                                      call1.set_command_close();
+                                      call1.perform();
+                                      auto call2 = id(cover2).make_call();
+                                      call2.set_command_close();
+                                      call2.perform();
+                                      auto call3 = id(cover3).make_call();
+                                      call3.set_command_close();
+                                      call3.perform();
+                                      auto call4 = id(cover4).make_call();
+                                      call4.set_command_close();
+                                      call4.perform();
+                                      auto call5 = id(cover5).make_call();
+                                      call5.set_command_close();
+                                      call5.perform();
+                                      auto call6 = id(cover6).make_call();
+                                      call6.set_command_close();
+                                      call6.perform();
+                                      auto call7 = id(cover7).make_call();
+                                      call7.set_command_close();
+                                      call7.perform();
+                                      auto call8 = id(cover8).make_call();
+                                      call8.set_command_close();
+                                      call8.perform();
+                                      auto call9 = id(cover9).make_call();
+                                      call9.set_command_close();
+                                      call9.perform();
+                                      auto call10 = id(cover10).make_call();
+                                      call10.set_command_close();
+                                      call10.perform();
+                                      auto call11 = id(cover11).make_call();
+                                      call11.set_command_close();
+                                      call11.perform();
+                                      auto call12 = id(cover12).make_call();
+                                      call12.set_command_close();
+                                      call12.perform();
+                                      auto call13 = id(cover13).make_call();
+                                      call13.set_command_close();
+                                      call13.perform();
+                                      auto call14 = id(cover14).make_call();
+                                      call14.set_command_close();
+                                      call14.perform();
+                                      auto call15 = id(cover15).make_call();
+                                      call15.set_command_close();
+                                      call15.perform();
+                                      auto call16 = id(cover16).make_call();
+                                      call16.set_command_close();
+                                      call16.perform();
+              - buttonmatrix:
+                  id: nav_all_btns
+                  align: BOTTOM_MID
+                  y: -10
+                  width: 280
+                  height: 40
+                  rows:
+                  - buttons:
+                      - id: nav_all_prev
+                        text: "\U0000E314 Prev"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta17
+                      - id: nav_all_next
+                        text: "Next \U0000E315"
+                        on_press:
+                          then:
+                            - lvgl.page.show: page_roleta1
+
 i2c:
-  sda: GPIO21
+  sda: GPIO27
   scl: GPIO22
   scan: true
   id: bus_a
+  frequency: 100kHz
 
-mcp23008:
-  - id: 'mcp23008_hub1'
-    address: 0x26
-  - id: 'mcp23008_hub2'
-    address: 0x25
-  - id: 'mcp23008_hub3'
-    address: 0x24
-
+pca9554:
+  - id: 'pca9554_hub0' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub1' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub2' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub3' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub4' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true 
+    #interrupt: GPIO35
+  - id: 'pca9554_hub5' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub6' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35
+  - id: 'pca9554_hub7' #0 up 1 down 2 up 3 down 4 in1 5 in2 6 in3 7 in4
+    address: 0x20
+    #open_drain_interrupt: true
+    #interrupt: GPIO35  
 switch:
   - platform: restart
     name: "$friendly_name restart"
@@ -35,39 +1613,39 @@ switch:
 #-----------------------------
   - platform: gpio
     id: relay_1
-    name: "MCP23008 1 Pin #0 relay_1 UP"
+    name: "pca9554 1 Pin #0 relay_1 UP"
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 0
       number: 0
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 1 Pin #1 relay_2 DOWN"
+    name: "pca9554 1 Pin #1 relay_2 DOWN"
     id: relay_2
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 1
       number: 1
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 1 Pin #2 relay_3 UP"
+    name: "pca9554 1 Pin #2 relay_3 UP"
     id: relay_3
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 2
       number: 2
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 1 Pin #3 relay_4 DOWN"
+    name: "pca9554 1 Pin #3 relay_4 DOWN"
     id: relay_4
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 3
       number: 3
       mode:
@@ -76,39 +1654,39 @@ switch:
 #----------------------------
   - platform: gpio
     id: relay_5
-    name: "MCP23008 2 Pin #0 relay_5 UP"
+    name: "pca9554 2 Pin #0 relay_5 UP"
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 0
       number: 0
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 2 Pin #1 relay_6 DOWN"
+    name: "pca9554 2 Pin #1 relay_6 DOWN"
     id: relay_6
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 1
       number: 1
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 2 Pin #2 relay_7 UP"
+    name: "pca9554 2 Pin #2 relay_7 UP"
     id: relay_7
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 2
       number: 2
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 2 Pin #3 relay_8 DOWN"
+    name: "pca9554 2 Pin #3 relay_8 DOWN"
     id: relay_8
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 3
       number: 3
       mode:
@@ -117,40 +1695,225 @@ switch:
 #-------------------------
   - platform: gpio
     id: relay_9
-    name: "MCP23008 3 Pin #7 relay_9 UP"
+    name: "pca9554 3 Pin #7 relay_9 UP"
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 7
       number: 7
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 3 Pin #1 relay_10 DOWN"
+    name: "pca9554 3 Pin #1 relay_10 DOWN"
     id: relay_10
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 1
       number: 1
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 3 Pin #2 relay_11 UP"
+    name: "pca9554 3 Pin #2 relay_11 UP"
     id: relay_11
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 2
       number: 2
       mode:
         output: true
       inverted: false
   - platform: gpio
-    name: "MCP23008 3 Pin #3 relay_12 DOWN"
+    name: "pca9554 3 Pin #3 relay_12 DOWN"
     id: relay_12
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 3
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_13
+    name: "pca9554 4 Pin #0 relay_13 UP"
+    pin:
+      pca9554: pca9554_hub2
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 4 Pin #1 relay_14 DOWN"
+    id: relay_14
+    pin:
+      pca9554: pca9554_hub2
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 4 Pin #2 relay_15 UP"
+    id: relay_15
+    pin:
+      pca9554: pca9554_hub2
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 4 Pin #3 relay_16 DOWN"
+    id: relay_16
+    pin:
+      pca9554: pca9554_hub2
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_17
+    name: "pca9554 5 Pin #0 relay_17 UP"
+    pin:
+      pca9554: pca9554_hub3
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 5 Pin #1 relay_18 DOWN"
+    id: relay_18
+    pin:
+      pca9554: pca9554_hub3
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 5 Pin #2 relay_19 UP"
+    id: relay_19
+    pin:
+      pca9554: pca9554_hub3
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 5 Pin #3 relay_20 DOWN"
+    id: relay_20
+    pin:
+      pca9554: pca9554_hub3
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_21
+    name: "pca9554 6 Pin #0 relay_21 UP"
+    pin:
+      pca9554: pca9554_hub5
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 6 Pin #1 relay_22 DOWN"
+    id: relay_22
+    pin:
+      pca9554: pca9554_hub5
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 6 Pin #2 relay_23 UP"
+    id: relay_23
+    pin:
+      pca9554: pca9554_hub5
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 6 Pin #3 relay_24 DOWN"
+    id: relay_24
+    pin:
+      pca9554: pca9554_hub5
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_25
+    name: "pca9554 7 Pin #0 relay_25 UP"
+    pin:
+      pca9554: pca9554_hub6
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 7 Pin #1 relay_26 DOWN"
+    id: relay_26
+    pin:
+      pca9554: pca9554_hub6
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 7 Pin #2 relay_27 UP"
+    id: relay_27
+    pin:
+      pca9554: pca9554_hub6
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 7 Pin #3 relay_28 DOWN"
+    id: relay_28
+    pin:
+      pca9554: pca9554_hub6
+      number: 3
+      mode:
+        output: true
+      inverted: false
+#-------------------------
+  - platform: gpio
+    id: relay_29
+    name: "pca9554 8 Pin #0 relay_29 UP"
+    pin:
+      pca9554: pca9554_hub7
+      number: 0
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 8 Pin #1 relay_30 DOWN"
+    id: relay_30
+    pin:
+      pca9554: pca9554_hub7
+      number: 1
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 8 Pin #2 relay_31 UP"
+    id: relay_31
+    pin:
+      pca9554: pca9554_hub7
+      number: 2
+      mode:
+        output: true
+      inverted: false
+  - platform: gpio
+    name: "pca9554 8 Pin #3 relay_32 DOWN"
+    id: relay_32
+    pin:
+      pca9554: pca9554_hub7
       number: 3
       mode:
         output: true
@@ -159,271 +1922,1036 @@ switch:
 binary_sensor:
 
   - platform: gpio
-    name: "MCP23008 Pin 1 #4 IN1"
+    name: "pca9554 1 Pin #4 IN1"
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 4
       number: 4
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover1).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover1).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover1).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover1).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover1).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover1).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 1 Pin #5 IN2"
+    name: "pca9554 1 Pin #5 IN2"
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 5
       number: 5
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover1).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover1).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover1).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover1).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover1).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover1).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 1 Pin #6 IN3"
+    name: "pca9554 1 Pin #6 IN3"
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 6
       number: 6
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover2).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover2).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover2).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover2).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover2).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover2).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 1 Pin #7 IN4"
+    name: "pca9554 1 Pin #7 IN4"
     pin:
-      mcp23xxx: mcp23008_hub1
+      pca9554: pca9554_hub0
       # Use pin number 7
       number: 7
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover2).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover2).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover2).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover2).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover2).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover2).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();
 #------------------------
   - platform: gpio
-    name: "MCP23008 2 Pin #4 IN1"
+    name: "pca9554 2 Pin #4 IN1"
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 4
       number: 4
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover3).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover3).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover3).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover3).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover3).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover3).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 2 Pin #5 IN2"
+    name: "pca9554 2 Pin #5 IN2"
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 5
       number: 5
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover3).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover3).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover3).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover3).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover3).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover3).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 2 Pin #6 IN3"
+    name: "pca9554 2 Pin #6 IN3"
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 6
       number: 6
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover4).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover4).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover4).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover4).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover4).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover4).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 2 Pin #7 IN4"
+    name: "pca9554 2 Pin #7 IN4"
     pin:
-      mcp23xxx: mcp23008_hub2
+      pca9554: pca9554_hub1
       # Use pin number 7
       number: 7
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover4).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover4).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover4).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover4).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover4).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover4).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();
 #------------------------
   - platform: gpio
-    name: "MCP23008 3 Pin #4 IN1"
+    name: "pca9554 3 Pin #4 IN1"
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 4
       number: 4
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover5).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover5).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover5).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover5).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover5).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover5).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 3 Pin #5 IN2"
+    name: "pca9554 3 Pin #5 IN2"
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 5
       number: 5
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover5).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover5).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover5).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover5).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover5).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover5).make_call();
+                call.set_command_close();
+                call.perform(); 
+              }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();        
   - platform: gpio
-    name: "MCP23008 3 Pin #6 IN3"
+    name: "pca9554 3 Pin #6 IN3"
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 6
       number: 6
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover6).current_operation == COVER_OPERATION_OPENING){
-            auto call = id(cover6).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover6).make_call();
-            call.set_command_open();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover6).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover6).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover6).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_open();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_open();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_open();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_open();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_open();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_open();
+              call6.perform();
   - platform: gpio
-    name: "MCP23008 3 Pin #0 IN4"
+    name: "pca9554 3 Pin #0 IN4"
     pin:
-      mcp23xxx: mcp23008_hub3
+      pca9554: pca9554_hub4
       # Use pin number 0
       number: 0
       # One of INPUT or INPUT_PULLUP
       mode:
         input: true
       inverted: true
-    on_press:
-      - lambda: |-
-          if (id(cover6).current_operation == COVER_OPERATION_CLOSING){
-            auto call = id(cover6).make_call();
-            call.set_command_stop();
-            call.perform(); 
-          }
-          else {
-            auto call = id(cover6).make_call();
-            call.set_command_close();
-            call.perform(); 
-            }
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover6).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover6).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover6).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+      - min_length: 5000ms
+        max_length: 10000ms
+        then:
+          - lambda: |-
+              auto call1 = id(cover1).make_call();
+              call1.set_command_close();
+              call1.perform();
+              auto call2 = id(cover2).make_call();
+              call2.set_command_close();
+              call2.perform();
+              auto call3 = id(cover3).make_call();
+              call3.set_command_close();
+              call3.perform();
+              auto call4 = id(cover4).make_call();
+              call4.set_command_close();
+              call4.perform();
+              auto call5 = id(cover5).make_call();
+              call5.set_command_close();
+              call5.perform();
+              auto call6 = id(cover6).make_call();
+              call6.set_command_close();
+              call6.perform();
+#------------------------
+  - platform: gpio
+    name: "pca9554 4 Pin #4 IN1"
+    pin:
+      pca9554: pca9554_hub2
+      number: 4
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover7).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover7).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover7).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 4 Pin #5 IN2"
+    pin:
+      pca9554: pca9554_hub2
+      number: 5
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover7).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover7).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover7).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 4 Pin #6 IN3"
+    pin:
+      pca9554: pca9554_hub2
+      number: 6
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover8).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover8).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover8).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 4 Pin #7 IN4"
+    pin:
+      pca9554: pca9554_hub2
+      number: 7
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover8).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover8).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover8).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+#------------------------
+  - platform: gpio
+    name: "pca9554 5 Pin #4 IN1"
+    pin:
+      pca9554: pca9554_hub3
+      number: 4
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover9).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover9).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover9).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 5 Pin #5 IN2"
+    pin:
+      pca9554: pca9554_hub3
+      number: 5
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover9).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover9).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover9).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 5 Pin #6 IN3"
+    pin:
+      pca9554: pca9554_hub3
+      number: 6
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover10).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover10).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover10).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 5 Pin #7 IN4"
+    pin:
+      pca9554: pca9554_hub3
+      number: 7
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover10).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover10).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover10).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+#------------------------
+  - platform: gpio
+    name: "pca9554 6 Pin #4 IN1"
+    pin:
+      pca9554: pca9554_hub5
+      number: 4
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover11).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover11).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover11).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 6 Pin #5 IN2"
+    pin:
+      pca9554: pca9554_hub5
+      number: 5
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover11).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover11).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover11).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 6 Pin #6 IN3"
+    pin:
+      pca9554: pca9554_hub5
+      number: 6
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover12).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover12).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover12).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 6 Pin #7 IN4"
+    pin:
+      pca9554: pca9554_hub5
+      number: 7
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover12).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover12).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover12).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+#------------------------
+  - platform: gpio
+    name: "pca9554 7 Pin #4 IN1"
+    pin:
+      pca9554: pca9554_hub6
+      number: 4
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover13).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover13).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover13).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 7 Pin #5 IN2"
+    pin:
+      pca9554: pca9554_hub6
+      number: 5
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover13).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover13).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover13).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 7 Pin #6 IN3"
+    pin:
+      pca9554: pca9554_hub6
+      number: 6
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover14).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover14).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover14).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 7 Pin #7 IN4"
+    pin:
+      pca9554: pca9554_hub6
+      number: 7
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover14).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover14).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover14).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+#------------------------
+  - platform: gpio
+    name: "pca9554 8 Pin #4 IN1"
+    pin:
+      pca9554: pca9554_hub7
+      number: 4
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover15).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover15).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover15).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 8 Pin #5 IN2"
+    pin:
+      pca9554: pca9554_hub7
+      number: 5
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover15).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover15).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover15).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 8 Pin #6 IN3"
+    pin:
+      pca9554: pca9554_hub7
+      number: 6
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover16).current_operation == COVER_OPERATION_OPENING){
+                auto call = id(cover16).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover16).make_call();
+                call.set_command_open();
+                call.perform(); 
+                }
+  - platform: gpio
+    name: "pca9554 8 Pin #7 IN4"
+    pin:
+      pca9554: pca9554_hub7
+      number: 7
+      mode:
+        input: true
+      inverted: true
+    on_click:
+      - min_length: 50ms
+        max_length: 5000ms
+        then:
+          - lambda: |-
+              if (id(cover16).current_operation == COVER_OPERATION_CLOSING){
+                auto call = id(cover16).make_call();
+                call.set_command_stop();
+                call.perform(); 
+              }
+              else {
+                auto call = id(cover16).make_call();
+                call.set_command_close();
+                call.perform(); 
+                }
 
 cover:
   - platform: time_based
@@ -516,3 +3044,153 @@ cover:
     stop_action:
       - switch.turn_off: relay_11
       - switch.turn_off: relay_12
+  - platform: time_based
+    name: "Roleta 7"
+    id: cover7
+
+    open_action:
+      - switch.turn_on: relay_13
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_14
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_13
+      - switch.turn_off: relay_14
+  - platform: time_based
+    name: "Roleta 8"
+    id: cover8
+
+    open_action:
+      - switch.turn_on: relay_15
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_16
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_15
+      - switch.turn_off: relay_16
+  - platform: time_based
+    name: "Roleta 9"
+    id: cover9
+
+    open_action:
+      - switch.turn_on: relay_17
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_18
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_17
+      - switch.turn_off: relay_18
+  - platform: time_based
+    name: "Roleta 10"
+    id: cover10
+
+    open_action:
+      - switch.turn_on: relay_19
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_20
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_19
+      - switch.turn_off: relay_20
+  - platform: time_based
+    name: "Roleta 11"
+    id: cover11
+
+    open_action:
+      - switch.turn_on: relay_21
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_22
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_21
+      - switch.turn_off: relay_22
+  - platform: time_based
+    name: "Roleta 12"
+    id: cover12
+
+    open_action:
+      - switch.turn_on: relay_23
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_24
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_23
+      - switch.turn_off: relay_24
+  - platform: time_based
+    name: "Roleta 13"
+    id: cover13
+
+    open_action:
+      - switch.turn_on: relay_25
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_26
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_25
+      - switch.turn_off: relay_26
+  - platform: time_based
+    name: "Roleta 14"
+    id: cover14
+
+    open_action:
+      - switch.turn_on: relay_27
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_28
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_27
+      - switch.turn_off: relay_28
+  - platform: time_based
+    name: "Roleta 15"
+    id: cover15
+
+    open_action:
+      - switch.turn_on: relay_29
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_30
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_29
+      - switch.turn_off: relay_30
+  - platform: time_based
+    name: "Roleta 16"
+    id: cover16
+
+    open_action:
+      - switch.turn_on: relay_31
+    open_duration: 2.1min
+
+    close_action:
+      - switch.turn_on: relay_32
+    close_duration: 2min
+
+    stop_action:
+      - switch.turn_off: relay_31
+      - switch.turn_off: relay_32
