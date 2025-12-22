@@ -1,34 +1,3 @@
-esphome:
-  name: zaluzje
-  friendly_name: zaluzje
-
-esp32:
-  board: esp32dev
-  framework:
-    type: arduino
-
-# Enable logging
-logger:
-  level: INFO
-
-# Enable Home Assistant API
-api:
-  encryption:
-    key: "AZDpnAC7F9v0GgUJSoeB50t/uyy0cHWzApCHNL0cHLc="
-
-ota:
-  - platform: esphome
-    password: "314fa81e880e11f4f7c3e57e44f16bdb"
-
-wifi:
-  ssid: !secret wifi_ssid #"T-Mobile-ZTE MF286-83954E" #!secret wifi_ssid
-  password: !secret wifi_password #"Maniek104" #!secret wifi_password
-
-  # Enable fallback hotspot (captive portal) in case wifi connection fails
-  ap:
-    ssid: "zaluzje1"
-    password: "zaluzje1"
-
 captive_portal:
 
 web_server:
