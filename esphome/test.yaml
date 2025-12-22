@@ -1,3 +1,21 @@
+substitutions:
+  device_name: "zaluzje"
+  friendly_name: zaluzje
+  upper_devicename: zaluzje
+
+esphome:
+  name: zaluzje
+  friendly_name: zaluzje
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: INFO
+
 captive_portal:
 
 web_server:
@@ -1583,6 +1601,7 @@ switch:
   - platform: gpio
     id: relay_1
     name: "pca9554 1 Pin #0 relay_1 UP"
+    interlock: relay_2
     pin:
       pca9554: pca9554_hub0
       # Use pin number 0
@@ -1593,6 +1612,7 @@ switch:
   - platform: gpio
     name: "pca9554 1 Pin #1 relay_2 DOWN"
     id: relay_2
+    interlock: relay_1
     pin:
       pca9554: pca9554_hub0
       # Use pin number 1
@@ -1603,6 +1623,7 @@ switch:
   - platform: gpio
     name: "pca9554 1 Pin #2 relay_3 UP"
     id: relay_3
+    interlock: relay_3
     pin:
       pca9554: pca9554_hub0
       # Use pin number 2
@@ -1613,6 +1634,7 @@ switch:
   - platform: gpio
     name: "pca9554 1 Pin #3 relay_4 DOWN"
     id: relay_4
+    interlock: relay_3
     pin:
       pca9554: pca9554_hub0
       # Use pin number 3
